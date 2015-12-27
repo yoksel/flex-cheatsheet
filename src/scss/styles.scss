@@ -1,0 +1,217 @@
+
+$col-1: #CFF09E;
+$col-2: #A8DBA8;
+$col-3: #79BD9A;
+$col-4: #3B8686;
+$col-5: #0B486B;
+
+@mixin aside-width {
+    width: 20%;
+    min-width: 250px;
+    max-width: 600px;
+}
+
+@import 'normalize';
+
+BODY {
+    background: white;
+    font: 16px/1.4 Georgia, serif;
+    }
+
+H1, H2, H3, H4 {
+    margin-top: 0;
+    font-weight: normal;
+    }
+
+Ul, LI {
+    margin: 0;
+    padding: 0;
+}
+
+/* Layout
+---------------------------- */
+
+.l-wrapper {
+    display: flex;
+    min-height: 100%;
+    background: $col-1;
+    }
+
+.l-main,
+.l-aside {
+    /*padding: 1em;*/
+    }
+
+.l-main {
+    /*border: 3px solid green;*/
+    flex: 1;
+}
+
+.l-aside {
+    @include aside-width;
+    order: -1;
+    padding: 1rem 0;
+    background: $col-5;
+    }
+
+.hidden-content {
+    display: none;
+}
+
+/* Content
+---------------------------- */
+.content {
+    /*border: 1px solid;*/
+
+    A {
+        color: $col-5;
+    }
+
+    &__title {
+        }
+
+    &__item {
+        display: block;
+        width: 100%;
+        min-height: 100vh;
+        padding: 1rem 2em;
+        box-sizing: border-box;
+        border-bottom: 5px solid $col-5;
+        }
+
+        &__title {
+            color: $col-4;
+            }
+    }
+
+/* Values */
+.values-content__term {
+    font-weight: bold;
+    color: $col-4;
+    }
+.values-content__desc {
+    margin-bottom: 1rem;
+    }
+
+/* Nav
+---------------------------- */
+$nav-grad-step: .5rem;
+
+.nav {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+
+    @include aside-width;
+
+    height: 100%;
+    overflow: auto;
+
+    A {
+        display: block;
+        color: $col-1;
+        }
+
+    &__item {
+        margin-bottom: 1rem;
+        }
+        &__link {
+            position: relative;
+            display: block;
+            /*margin-bottom: .5rem;*/
+            padding: 0 1rem;
+            }
+    &__item--current &__link {
+        }
+        &__item--current &__link:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: -1rem;
+            width: 2rem;
+            height: 2rem;
+            margin: auto;
+            background: $col-1;
+            border-radius: 50%;
+        }
+    }
+
+.values-nav {
+    margin-left: 1.5rem;
+
+    &__item,
+    A {
+        color: $col-4;
+        }
+
+    &__item {
+        list-style-position: inside
+        }
+
+    &__item--current,
+    &__item--current A {
+        color: $col-2;
+        }
+    }
+
+
+/* Demo
+---------------------------- */
+.demo-wrapper {
+    /*border: 3px solid $col-3;
+    height: 200px;
+    width: 300px;*/
+    margin: 2rem 0;
+    /*border: 1px solid;*/
+    }
+.demo-values__control {
+    margin: 0 .5rem .5rem 0;
+    padding: .3rem .7rem;
+    border: 0;
+    background: $col-4;
+    border-radius: 3px;
+    color: $col-1;
+    }
+
+.demo {
+    border: 3px solid $col-3;
+    height: 200px;
+    width: 300px;
+    }
+.flex-items {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    }
+.flex-item {
+    background: $col-3;
+    /*box-shadow: 0 0 10px blue inset;*/
+    border: 1px solid;
+    text-shadow: 0 0 5px $col-4;
+    color: $col-2;
+    }
+    .flex-item:before {
+        content: " ";
+        display: block;
+        width: 3rem;
+        line-height: 200px;
+        font-size: 3rem;
+        text-align: center;
+        }
+        .flex-item:nth-child(1):before {
+            content: "1";
+            }
+        .flex-item:nth-child(2):before {
+            content: "2";
+            }
+        .flex-item:nth-child(3):before {
+            content: "3";
+            }
+        .flex-item:nth-child(4):before {
+            content: "4";
+            }
+        .flex-item:nth-child(5):before {
+            content: "5";
+            }
