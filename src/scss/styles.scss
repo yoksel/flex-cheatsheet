@@ -16,6 +16,7 @@ $col-5: #0B486B;
 BODY {
     background: white;
     font: 16px/1.4 Georgia, serif;
+    color: darken($col-5, 10%);
     }
 
 H1, H2, H3, H4 {
@@ -39,18 +40,15 @@ Ul, LI {
 
 .l-main,
 .l-aside {
-    /*padding: 1em;*/
     }
 
 .l-main {
-    /*border: 3px solid green;*/
     flex: 1;
-}
+    }
 
 .l-aside {
     @include aside-width;
     order: -1;
-    padding: 1rem 0;
     background: $col-5;
     }
 
@@ -106,10 +104,19 @@ $nav-grad-step: .5rem;
 
     height: 100%;
     overflow: auto;
+    padding: 1rem 0;
 
     A {
         display: block;
         color: $col-1;
+        }
+
+    &__subheader {
+        margin-bottom: 0;
+        padding: 0 1rem;
+        font-size: 1.45rem;
+        line-height: 1;
+        color: darken($col-5, 10%);
         }
 
     &__item {
@@ -135,6 +142,8 @@ $nav-grad-step: .5rem;
             margin: auto;
             background: $col-1;
             border-radius: 50%;
+            /*box-shadow: 0 0 0 10px rgba(0,0,0,.2);*/
+            box-shadow: 0 0 0 10px $col-4;
         }
     }
 
@@ -172,13 +181,18 @@ $nav-grad-step: .5rem;
     border: 0;
     background: $col-4;
     border-radius: 3px;
-    color: $col-1;
+    color: $col-2;
+
+    &--current {
+        background: $col-5;
+        color: $col-1;
+        }
     }
 
 .demo {
     border: 3px solid $col-3;
-    height: 200px;
-    width: 300px;
+    height: 300px;
+    width: 100%;
     }
 .flex-items {
     width: 100%;
@@ -186,32 +200,30 @@ $nav-grad-step: .5rem;
     display: flex;
     }
 .flex-item {
+    position: relative;
+    min-width: 2rem;
+    max-width: 3rem;
+    min-height: 2rem;
+    padding: .5rem;
     background: $col-3;
-    /*box-shadow: 0 0 10px blue inset;*/
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
     border: 1px solid;
     text-shadow: 0 0 5px $col-4;
     color: $col-2;
     }
-    .flex-item:before {
-        content: " ";
-        display: block;
-        width: 3rem;
-        line-height: 200px;
-        font-size: 3rem;
-        text-align: center;
+    .flex-item:nth-child(1) {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.5rem' style='font: 30px/1 Georgia, serif' fill='#3B8686' fill-opacity='.7'%3E 1 %3C/text%3E%3C/svg%3E");
         }
-        .flex-item:nth-child(1):before {
-            content: "1";
-            }
-        .flex-item:nth-child(2):before {
-            content: "2";
-            }
-        .flex-item:nth-child(3):before {
-            content: "3";
-            }
-        .flex-item:nth-child(4):before {
-            content: "4";
-            }
-        .flex-item:nth-child(5):before {
-            content: "5";
-            }
+    .flex-item:nth-child(2) {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.5rem' style='font: 30px/1 Georgia, serif' fill='#3B8686' fill-opacity='.7'%3E 2 %3C/text%3E%3C/svg%3E");
+        }
+    .flex-item:nth-child(3) {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.5rem' style='font: 30px/1 Georgia, serif' fill='#3B8686' fill-opacity='.7'%3E 3 %3C/text%3E%3C/svg%3E");
+        }
+    .flex-item:nth-child(4) {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.5rem' style='font: 30px/1 Georgia, serif' fill='#3B8686' fill-opacity='.7'%3E 4 %3C/text%3E%3C/svg%3E");
+        }
+    .flex-item:nth-child(5) {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.5rem' style='font: 30px/1 Georgia, serif' fill='#3B8686' fill-opacity='.7'%3E 5 %3C/text%3E%3C/svg%3E");
+        }

@@ -1,8 +1,9 @@
 var data = [];
 
-data[0] = {
+data[ data.length ] = {
     name: 'display-flex',
     link: 'http://www.w3.org/TR/css3-flexbox/#flex-containers',
+    target: 'flex container',
     values: [
         {
             name: 'flex',
@@ -16,9 +17,20 @@ data[0] = {
     initValue: ''
 };
 
-data[1] = {
+data[ data.length ] = {
+    name: 'Ordering and Orientation',
+    type: 'subheader'
+};
+
+
+data[ data.length ] = {
     name: 'flex-direction',
+
     link: 'http://www.w3.org/TR/css3-flexbox/#flex-direction-property',
+    target: 'flex container',
+
+    desc: 'The flex-direction property specifies how flex items are placed in the flex container, by setting the direction of the flex container’s main axis. This determines the direction that flex items are laid out in.',
+
     values: [
         {
             name: 'row',
@@ -39,9 +51,16 @@ data[1] = {
     ],
     initValue: 'row'
 };
-data[2] = {
+
+
+data[ data.length ] = {
     name: 'flex-wrap',
+
     link: 'http://www.w3.org/TR/css3-flexbox/#flex-wrap-property',
+    target: 'flex container',
+
+    desc: 'The flex-wrap property controls whether the flex container is single-line or multi-line, and the direction of the cross-axis, which determines the direction new lines are stacked in.',
+
     values: [
         {
             name: 'nowrap',
@@ -57,14 +76,25 @@ data[2] = {
     ],
     initValue: 'nowrap'
 };
-data[3] = {
+
+data[ data.length ] = {
     name: 'order',
+
     link: '',
     initValue: '0'
 };
-data[4] = {
+
+data[ data.length ] = {
+    name: 'Alignment',
+    type: 'subheader'
+};
+
+data[ data.length ] = {
     name: 'justify-content',
+
     link: 'http://www.w3.org/TR/css3-flexbox/#justify-content-property',
+    target: 'flex container',
+
     values: [
         {
             name: 'flex-start',
@@ -89,9 +119,13 @@ data[4] = {
     ],
     initValue: 'flex-start'
 };
-data[5] = {
+
+data[ data.length ] = {
     name: 'align-items',
+
     link: 'http://www.w3.org/TR/css3-flexbox/#propdef-align-items',
+    target: 'flex container',
+
     values: [
         {
             name: 'flex-start',
@@ -116,14 +150,52 @@ data[5] = {
     ],
     initValue: 'stretch'
 };
-data[6] = {
+
+data[ data.length ] = {
     name: 'align-self',
+
     link: 'http://www.w3.org/TR/css3-flexbox/#propdef-align-self',
-    values: data[5].values,
-    initValue: 'auto'
+    //values: data[5].values,
+    initValue: 'auto',
+
+    target: 'flex items',
+
+    values: data[ data.length - 1 ].values
 };
-data[7] = {
+
+data[ data.length ] = {
     name: 'align-content',
-    link: '',
-    initValue: ''
+
+    link: 'http://www.w3.org/TR/css3-flexbox/#align-content-property',
+    initValue: 'stretch',
+
+    desc: '<p>The <b>align-content</b> property aligns a flex container’s lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.</p> <p><b>Note, this property has no effect on a single-line flex container.</b></p>',
+
+
+    values: [
+        {
+            name: 'flex-start',
+            desc: 'Lines are packed toward the start of the flex container. The cross-start edge of the first line in the flex container is placed flush with the cross-start edge of the flex container, and each subsequent line is placed flush with the preceding line.'
+        },
+        {
+            name: 'flex-end',
+            desc: 'Lines are packed toward the end of the flex container. The cross-end edge of the last line is placed flush with the cross-end edge of the flex container, and each preceding line is placed flush with the subsequent line.'
+        },
+        {
+            name: 'center',
+            desc: 'Lines are packed toward the center of the flex container. The lines in the flex container are placed flush with each other and aligned in the center of the flex container, with equal amounts of space between the cross-start content edge of the flex container and the first line in the flex container, and between the cross-end content edge of the flex container and the last line in the flex container. (If the leftover free-space is negative, the lines will overflow equally in both directions.)'
+        },
+        {
+            name: 'space-between',
+            desc: 'Lines are evenly distributed in the flex container. If the leftover free-space is negative this value is identical to flex-start. Otherwise, the cross-start edge of the first line in the flex container is placed flush with the cross-start content edge of the flex container, the cross-end edge of the last line in the flex container is placed flush with the cross-end content edge of the flex container, and the remaining lines in the flex container are distributed so that the spacing between any two adjacent lines is the same.'
+        },
+        {
+            name: 'space-around',
+            desc: 'Lines are evenly distributed in the flex container, with half-size spaces on either end. If the leftover free-space is negative this value is identical to center. Otherwise, the lines in the flex container are distributed such that the spacing between any two adjacent lines is the same, and the spacing between the first/last lines and the flex container edges is half the size of the spacing between flex lines.'
+        },
+        {
+            name: 'stretch',
+            desc: 'Lines stretch to take up the remaining space. If the leftover free-space is negative, this value is identical to flex-start. Otherwise, the free-space is split equally between all of the lines, increasing their cross size.'
+        }
+    ]
 };

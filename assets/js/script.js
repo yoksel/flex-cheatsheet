@@ -3,10 +3,15 @@
 var doc = document;
 var aside = $('.l-aside');
 var main = $('.l-main');
+var head = $('head');
 
 var navHolder = $.create('ul',{'class':'nav'});
 var contentHolder = $.create('div',{'class':'content'});
-var demo = $('.demo-wrapper');
+var demoWrapper = $('.demo-wrapper');
+
+var stylesHolder = $.create('style',{'id':'flex'});
+
+var demoValueClassCurrent = 'demo-values__control--current';
 
 //---------------------------------------------
 
@@ -18,19 +23,31 @@ function createContent () {
 
     aside.appendChild( navHolder );
     main.appendChild( contentHolder );
+    head.appendChild( stylesHolder );
+
+    console.log( 'stylesHolder.innerHTML' );
+    console.log( stylesHolder.innerHTML );
 
 }
 
 //---------------------------------------------
 
 function Item ( item ){
-    this.item = item;
+    this.dataItem = item;
 
     var navItem = this.navItemElem ();
-    var contentItem = this.ContentItemElem ();
-
     navHolder.appendChild( navItem );
+
+    if ( this.dataItem.type && this.dataItem.type == 'subheader' ) {
+        return;
+    }
+
+    var contentItem = this.ContentItemElem ();
+    var styles = this.StylesItem();
+
+
     contentHolder.appendChild( contentItem );
+
 }
 
 //---------------------------------------------
@@ -39,18 +56,31 @@ function Item ( item ){
 
 Item.prototype.navItemElem = function () {
 
-    var elemProps = {
-        'class':'nav__item nav__item--' + this.item.name,
-        'contents': [
+    var contents = [
             {
             'tag': 'a',
-            'href': '#' + this.item.name,
+            'href': '#' + this.dataItem.name,
             'class': 'nav__link',
-            'contents': this.item.name,
-            'data-parent-nav-item': this.item.name,
+            'contents': this.dataItem.name,
+            'data-parent-nav-item': this.dataItem.name,
             'events': { click: setCurrentNavItem }
             },
-            this.navItemValues () ]
+            this.navItemValues ()
+        ];
+
+    if ( this.dataItem.type && this.dataItem.type === 'subheader' ) {
+        contents = [
+            {
+            'tag': 'h2',
+            'class': 'nav__subheader',
+            'contents': this.dataItem.name
+            }
+        ];
+    }
+
+    var elemProps = {
+        'class':'nav__item nav__item--' + this.dataItem.name,
+        'contents': contents
     };
 
     var elem = $.create('li', elemProps);
@@ -63,12 +93,12 @@ Item.prototype.navItemElem = function () {
 Item.prototype.navItemValues = function () {
     var items = [];
 
-    if ( !this.item.values ) {
+    if ( !this.dataItem.values ) {
         return;
     }
 
-    for (var i = 0; i < this.item.values.length; i++) {
-        items = items.concat( navItemValueLink( this.item.values[i], this.item.name ) );
+    for (var i = 0; i < this.dataItem.values.length; i++) {
+        items = items.concat( navItemValueLink( this.dataItem.values[i], this.dataItem.name ) );
     };
 
     var elemProps = {
@@ -112,7 +142,7 @@ function setCurrentNavItem ( elem ) {
 
     var navItemCurrentClass = 'nav__item--current';
 
-    unsetCurrent ( navItemCurrentClass );
+    unsetClass ( navItemCurrentClass );
 
     elem = elem.nodeType == 1 ? elem : this;
 
@@ -125,9 +155,8 @@ function setCurrentNavItem ( elem ) {
 
 function setCurrentNavValue () {
 
-
     var navItemCurrentValClass = 'values-nav__item--current';
-    unsetCurrent ( navItemCurrentValClass );
+    unsetClass ( navItemCurrentValClass );
 
     setCurrentNavItem( this );
     this.parentNode.classList.add( navItemCurrentValClass );
@@ -138,10 +167,32 @@ function setCurrentNavValue () {
 // CONTENT
 //---------------------------------------------
 
+Item.prototype.ContentItemElem = function ( ) {
+
+    var elemProps = {
+        'class':'content__item',
+        'id': this.dataItem.name,
+        'contents': [
+            this.contentItemTitle (),
+            this.contentItemLink (),
+            this.contentItemDemo (),
+            this.contentItemDesc (),
+            this.contentItemInitial (),
+            this.contentItemValues ()
+            ]
+    };
+
+    var elem = $.create('section', elemProps);
+
+    return elem;
+}
+
+//---------------------------------------------
+
 Item.prototype.contentItemTitle = function () {
     var elemProps = {
         'class':'content__title',
-        'contents': this.item.name
+        'contents': this.dataItem.name
     };
 
     var elem = $.create('h1', elemProps);
@@ -151,10 +202,15 @@ Item.prototype.contentItemTitle = function () {
 //---------------------------------------------
 
 Item.prototype.contentItemLink = function () {
-    var linkText = this.item.link.replace('http://www.','');
+
+    if ( !this.dataItem.link ) {
+        return;
+    }
+
+    var linkText = this.dataItem.link.replace('http://www.','');
 
     var elemProps = {
-        'href': this.item.link,
+        'href': this.dataItem.link,
         'contents': linkText,
         'class':'content__link',
     };
@@ -165,16 +221,126 @@ Item.prototype.contentItemLink = function () {
 
 //---------------------------------------------
 
-Item.prototype.contentItemValues = function () {
-    var items = [];
+Item.prototype.contentItemInitial = function () {
 
-    if ( !this.item.values ) {
+    if ( !this.dataItem.initValue ){
         return;
     }
 
-    for (var i = 0; i < this.item.values.length; i++) {
-        var value = this.item.values[i];
-        var id = this.item.name + '__' + value.name;
+    var elemProps = {
+        'class':'content__initial-value',
+    };
+
+    var elem = $.create('p', elemProps);
+
+    elem.innerHTML = '<b>Initial</b>: ' + this.dataItem.initValue + '.';
+
+    return elem;
+}
+
+//---------------------------------------------
+
+Item.prototype.contentItemDemo = function () {
+    this.demoWrapper = $.clone( demoWrapper );
+    this.flexItemsElem = $('.flex-items', this.demoWrapper);
+
+    // Class-marker
+    this.flexItemsClassName = 'flex-items--' + this.dataItem.name;
+    this.flexItemsClass = '.' + this.flexItemsClassName;
+
+    this.flexItemsElem.classList.add( this.flexItemsClassName );
+
+    this.setPropertyClass();
+
+    this.contentItemDemoValues();
+
+    return this.demoWrapper;
+}
+
+//---------------------------------------------
+
+Item.prototype.setPropertyClass = function ( valueName ) {
+
+    valueName = valueName ? valueName : this.dataItem.initValue;
+
+    // Class-property
+    if ( valueName ) {
+
+        // Remove old property class
+        this.flexItemsElem.classList.remove( this.flexItemsPropClassName );
+
+        // Add new property class
+        this.flexItemsPropClassName = this.dataItem.name + '--' + valueName;
+        this.flexItemsPropClass = '.' + this.flexItemsPropClassName;
+
+        this.flexItemsElem.classList.add( this.flexItemsPropClassName );
+    }
+}
+
+//---------------------------------------------
+
+Item.prototype.contentItemDemoValues = function () {
+
+    var items = [];
+    var parentItem = this;
+
+    if ( !this.dataItem.values ) {
+        return;
+    }
+
+    for (var i = 0; i < this.dataItem.values.length; i++) {
+        var value = this.dataItem.values[i];
+        var valElem = new DemoControl( this, value );
+
+        if ( i === 0 ) {
+            valElem.classList.add( demoValueClassCurrent );
+        }
+        console.log( valElem );
+
+        items = items.concat(valElem);
+    };
+
+    var elemProps = {
+        'class':'values values-demo',
+        'contents': items,
+        'start': this.demoWrapper
+    };
+
+    var elem = $.create('ul', elemProps);
+    return elem;
+}
+
+//---------------------------------------------
+
+Item.prototype.contentItemDesc = function () {
+
+    if ( !this.dataItem.desc ) {
+        return;
+    }
+
+    var elemProps = {
+        'class':'content__desc'
+    };
+
+    var elem = $.create('div', elemProps);
+
+    elem.innerHTML = this.dataItem.desc;
+
+    return elem;
+}
+
+//---------------------------------------------
+
+Item.prototype.contentItemValues = function () {
+    var items = [];
+
+    if ( !this.dataItem.values ) {
+        return;
+    }
+
+    for (var i = 0; i < this.dataItem.values.length; i++) {
+        var value = this.dataItem.values[i];
+        var id = this.dataItem.name + '__' + value.name;
 
         items.push(
             {
@@ -201,74 +367,92 @@ Item.prototype.contentItemValues = function () {
 }
 
 //---------------------------------------------
+// DEMO CONTROLS
+//---------------------------------------------
 
-function test () {
-    console.log( this );
+function DemoControl( parentObj, value ) {
+
+    var valName = value.name;
+
+    this.elem = $.create({
+            'tag': 'button',
+            'class': 'values__control demo-values__control',
+            'contents': valName,
+            'name': valName,
+        });
+
+    this.elem.onclick = function( ) {
+        parentObj.setPropertyClass( valName );
+        // unsetClass ( demoValueClassCurrent );
+    }
+
+    return this.elem;
 }
 
 //---------------------------------------------
+// STYLES
+//---------------------------------------------
 
-Item.prototype.contentItemDemoValues = function () {
-    var items = [];
+Item.prototype.StylesItem = function () {
 
-    if ( !this.item.values ) {
+    // stylesHolder.innerHTML = '.test { }';
+
+    var prop = this.dataItem.name;
+    var values = this.dataItem.values;
+    var target = this.dataItem.target;
+    var intValue = this.dataItem.initValue;
+    var parentClass = this.flexItemsClass;
+    var childClass = this.flexItemsClass + ' .flex-item';
+
+    var parentStyles = '';
+
+    if ( !this.dataItem.target || !values) {
         return;
     }
 
-    for (var i = 0; i < this.item.values.length; i++) {
-        var value = this.item.values[i];
-        var valElem = $.create({
-                'tag': 'button',
-                'class': 'values__control demo-values__control',
-                'contents': value.name,
-                // 'events': {click: test}
-            });
-        items = items.concat(valElem);
+    for (var i = 0; i < values.length; i++) {
+
+        // Parent
+        if ( target === 'flex container' ) {
+
+            var value = values[i];
+            var elemClass = '.' + prop + '--' + value.name;
+
+            parentStyles += [
+                elemClass + ' {',
+                prop + ': ' + value.name + ';',
+                '}\n'
+                ].join('\n');
+
+        }
     };
 
-    var elemProps = {
-        'class':'values values-demo',
-        'contents': items,
-        'start': this.demo
-    };
+    // console.log( parentStyles );
 
-    var elem = $.create('ul', elemProps);
-    return elem;
-}
 
-//---------------------------------------------
+    // var childsStyles = [
+    //     childClass + ' {',
+    //     prop + ':' + intValue,
+    //     '}'
+    //     ].join('\n');
 
-Item.prototype.contentItemDemo = function () {
-    this.demo = $.clone( demo );
-    this.contentItemDemoValues();
+    var containerStyles = [
+        parentStyles,
+        // childsStyles
+        ].join('\n');
 
-    return this.demo;
-}
-//---------------------------------------------
+    console.log( containerStyles );
 
-Item.prototype.ContentItemElem = function ( ) {
+    stylesHolder.innerHTML += containerStyles;
 
-    var elemProps = {
-        'class':'content__item',
-        'id': this.item.name,
-        'contents': [
-            this.contentItemTitle (),
-            this.contentItemLink (),
-            // this.contentItemDemo (),
-            this.contentItemValues ()
-            ]
-    };
-
-    var elem = $.create('section', elemProps);
-
-    return elem;
+    console.log( stylesHolder.innerHTML );
 }
 
 //---------------------------------------------
 // COMMON
 //---------------------------------------------
 
-function unsetCurrent ( className ) {
+function unsetClass ( className ) {
     var current = $('.' + className);
 
     if ( current ) {
