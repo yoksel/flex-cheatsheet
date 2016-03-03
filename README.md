@@ -1,3 +1,0 @@
-# flex-cheatsheet
-
-Hello, world!
