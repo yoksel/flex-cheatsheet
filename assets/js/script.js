@@ -7,11 +7,17 @@ var head = $('head');
 
 var navHolder = $.create('ul',{'class':'nav'});
 var contentHolder = $.create('div',{'class':'content'});
-var demoWrapper = $('.demo-wrapper');
-
 var stylesHolder = $.create('style',{'id':'flex'});
 
+var demoWrapper = $('.demo-wrapper');
+var codeWrapper = $('.code-wrapper');
+
 var demoValueClassCurrent = 'demo-values__control--current';
+var codeOffset = '  ';
+var demoElemClasses = {
+  'flex container': '.parent' ,
+  'flex items': '.child--featured'
+};
 
 //---------------------------------------------
 
@@ -21,33 +27,32 @@ function createContent () {
         var item = new Item( data[i] );
     };
 
-    aside.appendChild( navHolder );
-    main.appendChild( contentHolder );
     head.appendChild( stylesHolder );
+    main.appendChild( contentHolder );
+    aside.appendChild( navHolder );
 
-    console.log( 'stylesHolder.innerHTML' );
-    console.log( stylesHolder.innerHTML );
-
+    // console.log( 'stylesHolder.innerHTML', stylesHolder.innerHTML );
 }
 
 //---------------------------------------------
+// CONTENT
+//---------------------------------------------
+
 
 function Item ( item ){
     this.dataItem = item;
 
-    var navItem = this.navItemElem ();
+    var navItem = this.navItemElem();
     navHolder.appendChild( navItem );
 
     if ( this.dataItem.type && this.dataItem.type == 'subheader' ) {
         return;
     }
 
-    var contentItem = this.ContentItemElem ();
+    var contentItem = this.ContentItemElem();
     var styles = this.StylesItem();
 
-
     contentHolder.appendChild( contentItem );
-
 }
 
 //---------------------------------------------
@@ -57,16 +62,16 @@ function Item ( item ){
 Item.prototype.navItemElem = function () {
 
     var contents = [
-            {
-            'tag': 'a',
-            'href': '#' + this.dataItem.name,
-            'class': 'nav__link',
-            'contents': this.dataItem.name,
-            'data-parent-nav-item': this.dataItem.name,
-            'events': { click: setCurrentNavItem }
-            },
-            this.navItemValues ()
-        ];
+        {
+        'tag': 'a',
+        'href': '#' + this.dataItem.name,
+        'class': 'nav__link',
+        'contents': this.dataItem.name,
+        // 'data-parent-nav-item': this.dataItem.name,
+        'events': { click: setCurrentNavItem }
+        },
+        // this.navItemValues ()
+    ];
 
     if ( this.dataItem.type && this.dataItem.type === 'subheader' ) {
         contents = [
@@ -126,8 +131,8 @@ function navItemValueLink( value, property ) {
             tag: 'a',
             href: '#' + href,
             textContent: value.name,
-            'data-parent-nav-item': property,
-            events: { click: setCurrentNavValue }
+            // 'data-parent-nav-item': property,
+            // events: { click: setCurrentNavValue }
             }
     };
 
@@ -141,14 +146,13 @@ function navItemValueLink( value, property ) {
 function setCurrentNavItem ( elem ) {
 
     var navItemCurrentClass = 'nav__item--current';
-
     unsetClass ( navItemCurrentClass );
 
-    elem = elem.nodeType == 1 ? elem : this;
-
-    var parent = $('.nav__item--' + elem.dataset.parentNavItem);
-
-    parent.classList.add( navItemCurrentClass );
+    // elem = elem.nodeType == 1 ? elem : this;
+    //
+    // var parent = $('.nav__item--' + elem.dataset.parentNavItem);
+    //
+    // parent.classList.add( navItemCurrentClass );
 }
 
 //---------------------------------------------
@@ -171,7 +175,7 @@ Item.prototype.ContentItemElem = function ( ) {
 
     var elemProps = {
         'class':'content__item',
-        'id': this.dataItem.name,
+        // 'id': this.dataItem.name,
         'contents': [
             this.contentItemTitle (),
             this.contentItemLink (),
@@ -184,6 +188,8 @@ Item.prototype.ContentItemElem = function ( ) {
 
     var elem = $.create('section', elemProps);
 
+    //console.log(elem);
+
     return elem;
 }
 
@@ -192,10 +198,11 @@ Item.prototype.ContentItemElem = function ( ) {
 Item.prototype.contentItemTitle = function () {
     var elemProps = {
         'class':'content__title',
-        'contents': this.dataItem.name
+        'contents': this.dataItem.name,
+        'id': this.dataItem.name
     };
 
-    var elem = $.create('h1', elemProps);
+    var elem = $.create('h2', elemProps);
     return elem;
 }
 
@@ -242,40 +249,104 @@ Item.prototype.contentItemInitial = function () {
 
 Item.prototype.contentItemDemo = function () {
     this.demoWrapper = $.clone( demoWrapper );
-    this.flexItemsElem = $('.flex-items', this.demoWrapper);
+    this.demoElem = $('.demo', this.demoWrapper);
+    this.targetElemSelector = demoElemClasses[ this.dataItem.target ];
+
+    if ( this.dataItem.demoBefore ) {
+      var view = $('.demo__view', this.demoWrapper);
+      view.innerHTML = this.dataItem.demoBefore + view.innerHTML;
+    }
 
     // Class-marker
-    this.flexItemsClassName = 'flex-items--' + this.dataItem.name;
-    this.flexItemsClass = '.' + this.flexItemsClassName;
+    this.demoClassName = 'demo--prop-' + this.dataItem.name;
+    this.demoClass = '.' + this.demoClassName;
 
-    this.flexItemsElem.classList.add( this.flexItemsClassName );
-
-    this.setPropertyClass();
+    this.demoElem.classList.add( this.demoClassName );
 
     this.contentItemDemoValues();
+    this.contentItemSetCSS();
+    this.contentItemSetCodeText();
+
+    // console.log(this);
 
     return this.demoWrapper;
 }
 
 //---------------------------------------------
 
-Item.prototype.setPropertyClass = function ( valueName ) {
+Item.prototype.contentItemGetCSS = function () {
+  var rules = this.dataItem.cssRules;
+  var parentClass = this.demoClass;
+  var visibleStyles = '';
+  var hiddenStyles = '';
+  var that = this;
 
-    valueName = valueName ? valueName : this.dataItem.initValue;
+  if ( rules ) {
+    rules.forEach( function(item, i){
+      var rulesList = '';
+      var styles = ''
 
-    // Class-property
-    if ( valueName ) {
+      for (var rule in item.rules ) {
+        rulesList += codeOffset + rule + ': ' + item.rules[ rule ] + ';\n';
+      }
 
-        // Remove old property class
-        this.flexItemsElem.classList.remove( this.flexItemsPropClassName );
+      styles = item.selector + ' {\n';
+      styles += rulesList;
+      styles += '}\n';
 
-        // Add new property class
-        this.flexItemsPropClassName = this.dataItem.name + '--' + valueName;
-        this.flexItemsPropClass = '.' + this.flexItemsPropClassName;
+      visibleStyles += styles;
+      hiddenStyles += parentClass + ' ' + styles;
 
-        this.flexItemsElem.classList.add( this.flexItemsPropClassName );
-    }
+    });
+
+    that.visibleStyles = visibleStyles;
+    that.hiddenStyles = hiddenStyles;
+
+    // console.log(this);
+  }
 }
+
+//---------------------------------------------
+
+Item.prototype.contentItemSetCSS = function () {
+
+  this.stylesElem = $.create('style',{ id: this.dataItem.name });
+
+  this.contentItemGetCSS();
+  this.stylesElem.innerHTML = this.hiddenStyles;
+
+  head.appendChild( this.stylesElem );
+}
+
+//---------------------------------------------
+
+Item.prototype.contentItemChangeCSSProp = function (  ) {
+
+  var rules = this.dataItem.cssRules;
+  var current = this.currentValue;
+  var targetSelector = this.targetElemSelector
+  var prop = this.dataItem.name;
+  var that = this;
+
+  if ( rules ) {
+    rules.forEach( function(rule, i){
+      if ( rule.selector === targetSelector ) {
+        rule.rules[ prop ] = current;
+
+        that.contentItemGetCSS();
+        that.stylesElem.innerHTML = that.hiddenStyles;
+        that.codesElem.innerHTML = that.visibleStyles;
+      }
+    });
+  }
+};
+
+//---------------------------------------------
+
+Item.prototype.contentItemSetCodeText = function () {
+    this.codesElem = $('.demo__code', this.demoWrapper);
+    this.codesElem.innerHTML = this.visibleStyles;
+};
 
 //---------------------------------------------
 
@@ -295,20 +366,18 @@ Item.prototype.contentItemDemoValues = function () {
         if ( i === 0 ) {
             valElem.classList.add( demoValueClassCurrent );
         }
-        console.log( valElem );
-
         items = items.concat(valElem);
     };
 
     var elemProps = {
-        'class':'values values-demo',
+        'class':'demo-values',
         'contents': items,
         'start': this.demoWrapper
     };
 
-    var elem = $.create('ul', elemProps);
+    var elem = $.create('div', elemProps);
     return elem;
-}
+};
 
 //---------------------------------------------
 
@@ -347,18 +416,18 @@ Item.prototype.contentItemValues = function () {
             tag: 'dt',
             id: id,
             textContent: value.name,
-            class: 'values__term values-content__term',
+            class: 'content-values__term',
             });
         items.push(
             {
             tag: 'dd',
             textContent: value.desc,
-            class: 'values__desc values-content__desc',
+            class: 'content-values__desc',
             });
     };
 
     var elemProps = {
-        'class':'values values-content',
+        'class':'content-values',
         'contents': items
     };
 
@@ -376,14 +445,23 @@ function DemoControl( parentObj, value ) {
 
     this.elem = $.create({
             'tag': 'button',
-            'class': 'values__control demo-values__control',
+            'class': 'demo-values__control',
             'contents': valName,
             'name': valName,
         });
 
     this.elem.onclick = function( ) {
-        parentObj.setPropertyClass( valName );
-        // unsetClass ( demoValueClassCurrent );
+        parentObj.currentValue = this.innerHTML;
+        parentObj.contentItemChangeCSSProp();
+
+        if ( !parentObj.currentElem ) {
+          parentObj.currentElem = $('.' + demoValueClassCurrent, this.parentNode);
+        }
+
+        parentObj.currentElem.classList.remove( demoValueClassCurrent );
+
+        parentObj.currentElem = this;
+        this.classList.add( demoValueClassCurrent )
     }
 
     return this.elem;
@@ -401,8 +479,8 @@ Item.prototype.StylesItem = function () {
     var values = this.dataItem.values;
     var target = this.dataItem.target;
     var intValue = this.dataItem.initValue;
-    var parentClass = this.flexItemsClass;
-    var childClass = this.flexItemsClass + ' .flex-item';
+    var parentClass = this.demoClass;
+    var childClass = this.demoClass + ' .flex-item';
 
     var parentStyles = '';
 
@@ -441,11 +519,11 @@ Item.prototype.StylesItem = function () {
         // childsStyles
         ].join('\n');
 
-    console.log( containerStyles );
+    // console.log( containerStyles );
 
     stylesHolder.innerHTML += containerStyles;
 
-    console.log( stylesHolder.innerHTML );
+    // console.log( stylesHolder.innerHTML );
 }
 
 //---------------------------------------------

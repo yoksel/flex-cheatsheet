@@ -4,6 +4,7 @@
   "description": "Flexbox Cheatsheet",
   "main": "index.html",
   "scripts": {
+    "start": "gulp serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "yoksel",

@@ -1,0 +1,34 @@
+.l-wrapper {
+    display: flex;
+    min-height: 100%;
+    background: $col-1;
+    }
+
+.l-main,
+.l-aside {
+    }
+
+.l-main {
+    flex: 1;
+    }
+
+.l-aside {
+    position: relative;
+    @include aside-width;
+    order: -1;
+    background: $col-5;
+
+    &:after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      height: 100%;
+      width: 10px;
+      background: $col-4;
+    }
+  }
+
+.hidden-content {
+    display: none;
+}

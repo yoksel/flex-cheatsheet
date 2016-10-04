@@ -1,0 +1,78 @@
+$nav-grad-step: .5rem;
+
+.nav {
+    position: fixed;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+
+    @include aside-width;
+
+    height: 100%;
+    overflow: auto;
+    padding: 1rem 0;
+    box-sizing: border-box;
+
+    &__link {
+        display: block;
+        color: $col-3;
+
+        &:hover {
+          color: $col-2;
+          }
+        }
+
+    &__subheader {
+        margin-bottom: 0;
+        padding: 0 1rem;
+        font-size: 1.45rem;
+        line-height: 1;
+        color: darken($col-5, 10%);
+        }
+
+    &__item {
+        margin-bottom: 1rem;
+        }
+        &__link {
+            position: relative;
+            display: block;
+            /*margin-bottom: .5rem;*/
+            padding: 0 1rem;
+            }
+    &__item--current &__link {
+        color: $col-1;
+        }
+        &__item--current &__link:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: -1rem;
+            width: 2rem;
+            height: 2rem;
+            margin: auto;
+            background: $col-1;
+            border-radius: 50%;
+            /*box-shadow: 0 0 0 10px rgba(0,0,0,.2);*/
+            box-shadow: 0 0 0 10px $col-4;
+        }
+    }
+
+.values-nav {
+    margin-left: 1.5rem;
+
+    &__item,
+    A {
+        color: $col-4;
+        }
+
+    &__item {
+        list-style-position: inside
+        }
+
+    &__item--current,
+    &__item--current A {
+        color: $col-2;
+        }
+    }

@@ -1,7 +1,7 @@
 var data = [];
 
 data[ data.length ] = {
-    name: 'display-flex',
+    name: 'display',
     link: 'http://www.w3.org/TR/css3-flexbox/#flex-containers',
     target: 'flex container',
     values: [
@@ -14,7 +14,14 @@ data[ data.length ] = {
             desc: 'This value causes an element to generate an inline-level flex container box.'
         }
     ],
-    initValue: ''
+    initValue: '',
+    cssRules: [
+      {
+        'selector': '.parent',
+        'rules': { 'display': 'flex' }
+      }
+    ],
+    demoBefore: 'Some text'
 };
 
 data[ data.length ] = {
@@ -49,7 +56,22 @@ data[ data.length ] = {
             desc: 'Same as column, except the main-start and main-end directions are swapped.'
         }
     ],
-    initValue: 'row'
+    initValue: 'row',
+    cssRules: [
+      {
+        'selector': '.parent',
+        'rules': {
+          'display': 'flex',
+          'flex-direction': 'row'
+         }
+      },
+      {
+        'selector': '.child',
+        'rules': {
+          'background-color': 'orange'
+        }
+      }
+    ],
 };
 
 
@@ -74,14 +96,48 @@ data[ data.length ] = {
             name: 'wrap-reverse',
             desc: 'Same as wrap, except the cross-start and cross-end directions are swapped.'}
     ],
-    initValue: 'nowrap'
+    initValue: 'nowrap',
+    cssRules: [
+      {
+        'selector': '.parent',
+        'rules': {
+          'display': 'flex',
+          'align-items': 'flex-start',
+          'height': '100%'
+         }
+      },
+      {
+        'selector': '.child',
+        'rules': {
+          'width': '40%'
+        }
+      }
+    ],
 };
 
 data[ data.length ] = {
     name: 'order',
 
     link: '',
-    initValue: '0'
+    target: 'flex items',
+    initValue: '0',
+    cssRules: [
+      {
+        'selector': '.parent',
+        'rules': {
+          'display': 'flex',
+          'align-items': 'flex-start',
+          'height': '100%'
+         }
+      },
+      {
+        'selector': '.child--featured',
+        'rules': {
+          'background-color': 'gold',
+          'order': '-1'
+        }
+      }
+    ],
 };
 
 data[ data.length ] = {
@@ -117,7 +173,16 @@ data[ data.length ] = {
             desc: 'Flex items are evenly distributed in the line, with half-size spaces on either end. If the leftover free-space is negative or there is only a single flex item on the line, this value is identical to center. Otherwise, the flex items on the line are distributed such that the spacing between any two adjacent flex items on the line is the same, and the spacing between the first/last flex items and the flex container edges is half the size of the spacing between flex items.'
         }
     ],
-    initValue: 'flex-start'
+    initValue: 'flex-start',
+    cssRules: [
+      {
+        'selector': '.parent',
+        'rules': {
+          'display': 'flex',
+          'height': '100%'
+         }
+      }
+    ],
 };
 
 data[ data.length ] = {
@@ -148,7 +213,16 @@ data[ data.length ] = {
             desc: 'If the cross size property of the flex item computes to auto, and neither of the cross-axis margins are auto, the flex item is stretched. Its used value is the length necessary to make the cross size of the item’s margin box as close to the same size as the line as possible, while still respecting the constraints imposed by min-height/min-width/max-height/max-width.'
         }
     ],
-    initValue: 'stretch'
+    initValue: 'stretch',
+    cssRules: [
+      {
+        'selector': '.parent',
+        'rules': {
+          'display': 'flex',
+          'height': '100%'
+         }
+      }
+    ],
 };
 
 data[ data.length ] = {
@@ -160,14 +234,28 @@ data[ data.length ] = {
 
     target: 'flex items',
 
-    values: data[ data.length - 1 ].values
+    values: data[ data.length - 1 ].values,
+    cssRules: [
+      {
+        'selector': '.parent',
+        'rules': {
+          'display': 'flex',
+          'height': '100%'
+         }
+      },
+      {
+        'selector': '.child--featured',
+        'rules': {
+          'background-color': 'gold'
+        }
+      }
+    ],
 };
 
 data[ data.length ] = {
     name: 'align-content',
 
     link: 'http://www.w3.org/TR/css3-flexbox/#align-content-property',
-    initValue: 'stretch',
 
     desc: '<p>The <b>align-content</b> property aligns a flex container’s lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.</p> <p><b>Note, this property has no effect on a single-line flex container.</b></p>',
 
@@ -197,5 +285,23 @@ data[ data.length ] = {
             name: 'stretch',
             desc: 'Lines stretch to take up the remaining space. If the leftover free-space is negative, this value is identical to flex-start. Otherwise, the free-space is split equally between all of the lines, increasing their cross size.'
         }
-    ]
+    ],
+    initValue: 'stretch',
+    cssRules: [
+      {
+        'selector': '.parent',
+        'rules': {
+          'display': 'flex',
+          'flex-wrap': 'wrap',
+          'align-items': 'center',
+          'height': '100%',
+         }
+      },
+      {
+        'selector': '.child',
+        'rules': {
+          'width': '30%'
+        }
+      }
+    ],
 };
