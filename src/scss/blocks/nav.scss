@@ -9,7 +9,7 @@ $nav-grad-step: .5rem;
     @include aside-width;
 
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
     padding: 1rem 0;
     box-sizing: border-box;
 
@@ -23,11 +23,13 @@ $nav-grad-step: .5rem;
         }
 
     &__subheader {
+        margin-top: .5rem;
         margin-bottom: 0;
         padding: 0 1rem;
         font-size: 1.45rem;
         line-height: 1;
         color: darken($col-5, 10%);
+        text-shadow: 2px 2px 0 $col-5, 3px 3px 0 darken($col-5, 10%);
         }
 
     &__item {
@@ -36,10 +38,11 @@ $nav-grad-step: .5rem;
         &__link {
             position: relative;
             display: block;
-            /*margin-bottom: .5rem;*/
+            margin-left: 1rem;
             padding: 0 1rem;
             }
     &__item--current &__link {
+        text-decoration: none;
         color: $col-1;
         }
         &__item--current &__link:after {

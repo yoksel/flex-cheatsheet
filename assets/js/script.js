@@ -18,18 +18,20 @@ var demoElemClasses = {
   'flex container': '.parent' ,
   'flex items': '.child--featured'
 };
+var navItemCurrentClass = 'nav__item--current';
 
 //---------------------------------------------
 
 function createContent () {
 
     for (var i = 0; i < data.length; i++) {
-        var item = new Item( data[i] );
+        var item = new Item( data[i], i );
     };
 
     head.appendChild( stylesHolder );
     main.appendChild( contentHolder );
     aside.appendChild( navHolder );
+
 }
 
 //---------------------------------------------
@@ -37,8 +39,9 @@ function createContent () {
 //---------------------------------------------
 
 
-function Item ( item ){
+function Item ( item, pos ){
     this.dataItem = item;
+    this.pos = pos;
 
     var navItem = this.navItemElem();
     navHolder.appendChild( navItem );
@@ -65,8 +68,8 @@ Item.prototype.navItemElem = function () {
         'href': '#' + this.dataItem.name,
         'class': 'nav__link',
         'contents': this.dataItem.name,
-        // 'data-parent-nav-item': this.dataItem.name,
-        // events': { click: setCurrentNavItem }
+        'data-parent-nav-item': this.dataItem.name,
+        'events': { click: setCurrentNavItem }
         },
         // this.navItemValues ()
     ];
@@ -81,8 +84,14 @@ Item.prototype.navItemElem = function () {
         ];
     }
 
+    var classList = ['nav__item', 'nav__item--' + this.dataItem.name];
+
+    if ( this.pos === 0 ) {
+      classList.push( navItemCurrentClass );
+    }
+
     var elemProps = {
-        'class':'nav__item nav__item--' + this.dataItem.name,
+        'class': classList.join(' '),
         'contents': contents
     };
 
@@ -143,14 +152,13 @@ function navItemValueLink( value, property ) {
 
 function setCurrentNavItem ( elem ) {
 
-    var navItemCurrentClass = 'nav__item--current';
     unsetClass ( navItemCurrentClass );
 
-    // elem = elem.nodeType == 1 ? elem : this;
-    //
-    // var parent = $('.nav__item--' + elem.dataset.parentNavItem);
-    //
-    // parent.classList.add( navItemCurrentClass );
+    elem = elem.nodeType == 1 ? elem : this;
+
+    var parent = $('.nav__item--' + elem.dataset.parentNavItem);
+
+    parent.classList.add( navItemCurrentClass );
 }
 
 //---------------------------------------------
@@ -173,7 +181,7 @@ Item.prototype.ContentItemElem = function ( ) {
 
     var elemProps = {
         'class':'content__item',
-        // 'id': this.dataItem.name,
+        'id': this.dataItem.name,
         'contents': [
             this.contentItemTitle (),
             this.contentItemLink (),
@@ -308,7 +316,7 @@ Item.prototype.contentItemGetCSS = function () {
 
 Item.prototype.contentItemSetCSS = function () {
 
-  this.stylesElem = $.create('style',{ id: this.dataItem.name });
+  this.stylesElem = $.create('style',{ id: 'style-' + this.dataItem.name });
 
   this.contentItemGetCSS();
   this.stylesElem.innerHTML = this.hiddenStyles;
