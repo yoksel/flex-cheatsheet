@@ -6,8 +6,8 @@ $col-5: #0B486B;
 
 @mixin aside-width {
     width: 23%;
-    min-width: 250px;
-    max-width: 600px;
+    min-width: 230px;
+    max-width: 400px;
 }
 
 @import 'normalize';
@@ -16,9 +16,9 @@ $col-5: #0B486B;
 @import 'blocks/nav';
 
 BODY {
-    backgrouxnd: white;
+    background: $col-1;
     font: 16px/1.4 Georgia, serif;
-    color: darken($col-5, 10%);
+    color: darken($col-5, 8%);
     }
 
 H1, H2, H3, H4 {

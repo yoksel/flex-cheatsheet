@@ -36,6 +36,7 @@
     height: 250px;
     box-sizing: border-box;
     flex-grow: 1;
+    flex-shrink: 0;
     padding: 1rem;
     background: $col-2;
     // border: 3px solid $col-3

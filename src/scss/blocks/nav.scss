@@ -10,7 +10,7 @@ $nav-grad-step: .5rem;
 
     height: 100%;
     overflow: hidden;
-    padding: 1rem 0;
+    padding: 1.5rem 0;
     box-sizing: border-box;
 
     &__link {
@@ -26,15 +26,26 @@ $nav-grad-step: .5rem;
         margin-top: .5rem;
         margin-bottom: 0;
         padding: 0 1rem;
-        font-size: 1.45rem;
+        font-size: 1.3rem;
         line-height: 1;
         color: darken($col-5, 10%);
         text-shadow: 2px 2px 0 $col-5, 3px 3px 0 darken($col-5, 10%);
+
+        @media ( min-width: 1130px ) {
+          font-size: 1.45rem;
         }
+      }
 
     &__item {
-        margin-bottom: 1rem;
+        margin-bottom: .5rem;
+
+        @media ( min-width: 900px ) {
+          margin-bottom: .75rem;
         }
+        @media ( min-width: 1130px ) {
+          margin-bottom: 1rem;
+        }
+      }
         &__link {
             position: relative;
             display: block;

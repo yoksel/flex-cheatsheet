@@ -289,19 +289,31 @@ Item.prototype.contentItemGetCSS = function () {
 
   if ( rules ) {
     rules.forEach( function(item, i){
-      var rulesList = '';
+      var rulesListHidden = '';
+      var rulesListVisible = '';
       var styles = ''
 
       for (var rule in item.rules ) {
-        rulesList += codeOffset + rule + ': ' + item.rules[ rule ] + ';\n';
+        var ruleString = rule + ': ' + item.rules[ rule ] + ';\n';
+
+        rulesListHidden += codeOffset + ruleString;
+
+        if ( rule === that.dataItem.name ) {
+          ruleString = '<mark>' + ruleString + '</mark>';
+        }
+
+        rulesListVisible += codeOffset + ruleString;
+
       }
 
-      styles = item.selector + ' {\n';
-      styles += rulesList;
-      styles += '}\n';
+      hiddenStyles += parentClass + ' ' + item.selector + ' {\n';
+      hiddenStyles += rulesListHidden;
+      hiddenStyles += '}\n';
 
-      visibleStyles += styles;
-      hiddenStyles += parentClass + ' ' + styles;
+      visibleStyles += item.selector + ' {\n';
+      visibleStyles += rulesListVisible;
+      visibleStyles += '}\n';
+
 
     });
 
@@ -369,9 +381,10 @@ Item.prototype.contentItemDemoValues = function () {
         var value = this.dataItem.values[i];
         var valElem = new DemoControl( this, value );
 
-        if ( value.name === this.dataItem.initValue ) {
+        if ( value.name === this.dataItem.initValue || i == 0 ) {
             valElem.classList.add( demoValueClassCurrent );
         }
+
         items = items.concat(valElem);
     };
 

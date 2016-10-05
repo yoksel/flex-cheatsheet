@@ -25,7 +25,7 @@ data[ data.length ] = {
 };
 
 data[ data.length ] = {
-    name: 'Ordering and Orientation',
+    name: 'Ordering & Orientation',
     type: 'subheader'
 };
 
@@ -97,6 +97,7 @@ data[ data.length ] = {
         'rules': {
           'display': 'flex',
           'align-items': 'flex-start',
+          'flex-wrap': 'nowrap',
           'height': '100%'
          }
       },
