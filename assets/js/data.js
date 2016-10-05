@@ -64,12 +64,6 @@ data[ data.length ] = {
           'display': 'flex',
           'flex-direction': 'row'
          }
-      },
-      {
-        'selector': '.child',
-        'rules': {
-          'background-color': 'orange'
-        }
       }
     ],
 };
@@ -133,8 +127,8 @@ data[ data.length ] = {
       {
         'selector': '.child--featured',
         'rules': {
+          'order': '-1',
           'background-color': 'gold',
-          'order': '-1'
         }
       }
     ],
@@ -179,6 +173,7 @@ data[ data.length ] = {
         'selector': '.parent',
         'rules': {
           'display': 'flex',
+          'justify-content': 'flex-start',
           'height': '100%'
          }
       }
@@ -219,6 +214,7 @@ data[ data.length ] = {
         'selector': '.parent',
         'rules': {
           'display': 'flex',
+          'align-items': 'stretch',
           'height': '100%'
          }
       }
@@ -229,7 +225,6 @@ data[ data.length ] = {
     name: 'align-self',
 
     link: 'http://www.w3.org/TR/css3-flexbox/#propdef-align-self',
-    //values: data[5].values,
     initValue: 'auto',
 
     target: 'flex items',
@@ -256,6 +251,7 @@ data[ data.length ] = {
     name: 'align-content',
 
     link: 'http://www.w3.org/TR/css3-flexbox/#align-content-property',
+    target: 'flex container',
 
     desc: '<p>The <b>align-content</b> property aligns a flex container’s lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.</p> <p><b>Note, this property has no effect on a single-line flex container.</b></p>',
 
@@ -293,7 +289,7 @@ data[ data.length ] = {
         'rules': {
           'display': 'flex',
           'flex-wrap': 'wrap',
-          'align-items': 'center',
+          'align-content': 'stretch',
           'height': '100%',
          }
       },

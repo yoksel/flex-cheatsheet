@@ -1,4 +1,4 @@
-// console.log('hello');
+// var tl = tinyLib;
 
 var doc = document;
 var aside = $('.l-aside');
@@ -30,8 +30,6 @@ function createContent () {
     head.appendChild( stylesHolder );
     main.appendChild( contentHolder );
     aside.appendChild( navHolder );
-
-    // console.log( 'stylesHolder.innerHTML', stylesHolder.innerHTML );
 }
 
 //---------------------------------------------
@@ -68,7 +66,7 @@ Item.prototype.navItemElem = function () {
         'class': 'nav__link',
         'contents': this.dataItem.name,
         // 'data-parent-nav-item': this.dataItem.name,
-        'events': { click: setCurrentNavItem }
+        // events': { click: setCurrentNavItem }
         },
         // this.navItemValues ()
     ];
@@ -363,7 +361,7 @@ Item.prototype.contentItemDemoValues = function () {
         var value = this.dataItem.values[i];
         var valElem = new DemoControl( this, value );
 
-        if ( i === 0 ) {
+        if ( value.name === this.dataItem.initValue ) {
             valElem.classList.add( demoValueClassCurrent );
         }
         items = items.concat(valElem);
@@ -458,7 +456,9 @@ function DemoControl( parentObj, value ) {
           parentObj.currentElem = $('.' + demoValueClassCurrent, this.parentNode);
         }
 
-        parentObj.currentElem.classList.remove( demoValueClassCurrent );
+        if ( parentObj.currentElem ) {
+          parentObj.currentElem.classList.remove( demoValueClassCurrent );
+        }
 
         parentObj.currentElem = this;
         this.classList.add( demoValueClassCurrent )

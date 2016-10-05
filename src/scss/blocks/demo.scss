@@ -36,10 +36,13 @@
     height: 250px;
     box-sizing: border-box;
     flex-grow: 1;
-    padding: .5rem;
-    border: 3px solid $col-3;
+    padding: 1rem;
+    background: $col-2;
+    // border: 3px solid $col-3
+    border-radius: .75rem;
     white-space: pre;
     font-family: monospace;
+    color: $col-5;
     }
 
 .parent {
