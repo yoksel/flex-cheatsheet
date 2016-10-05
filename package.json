@@ -9,6 +9,14 @@
   },
   "author": "yoksel",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:yoksel/flex-cheatsheet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yoksel/flex-cheatsheet/issues"
+  },
+  "homepage": "https://github.com/yoksel/flex-cheatsheet",
   "devDependencies": {
     "browser-sync": "^2.10.1",
     "gulp": "^3.9.0",
