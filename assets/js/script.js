@@ -193,9 +193,6 @@ Item.prototype.ContentItemElem = function ( ) {
     };
 
     var elem = $.create('section', elemProps);
-
-    //console.log(elem);
-
     return elem;
 }
 
@@ -369,21 +366,38 @@ Item.prototype.contentItemSetCodeText = function () {
 //---------------------------------------------
 
 Item.prototype.contentItemDemoValues = function () {
-
     var items = [];
     var parentItem = this;
+    var hasCurrent = false;
 
-    if ( !this.dataItem.values ) {
+    console.log( this.dataItem );
+    if ( !this.dataItem.values && !this.dataItem.customValues ) {
         return;
     }
 
-    for (var i = 0; i < this.dataItem.values.length; i++) {
-        var value = this.dataItem.values[i];
+    var values = this.dataItem.values;
+
+    if ( this.dataItem.customValues ) {
+      values = this.dataItem.customValues;
+    }
+
+    for (var i = 0; i < values.length; i++) {
+        var value = values[i];
         var valElem = new DemoControl( this, value );
 
-        if ( value.name === this.dataItem.initValue || i == 0 ) {
-            valElem.classList.add( demoValueClassCurrent );
+        if ( value.current && value.current === true ) {
+          valElem.classList.add( demoValueClassCurrent );
+          hasCurrent = true;
         }
+        else if ( !this.dataItem.customValues
+          && !hasCurrent
+          && value.name === this.dataItem.initValue ) {
+            valElem.classList.add( demoValueClassCurrent );
+            hasCurrent = true;
+        }
+        // else ( !hasCurrent ) {
+        //
+        // }
 
         items = items.concat(valElem);
     };

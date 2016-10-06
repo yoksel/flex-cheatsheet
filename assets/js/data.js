@@ -1,3 +1,4 @@
+var accentColor = 'khaki';
 var data = [];
 
 data[ data.length ] = {
@@ -7,7 +8,8 @@ data[ data.length ] = {
     values: [
         {
             name: 'flex',
-            desc: 'This value causes an element to generate a block-level flex container box.'
+            desc: 'This value causes an element to generate a block-level flex container box.',
+            current: true
         },
         {
             name: 'inline-flex',
@@ -62,7 +64,8 @@ data[ data.length ] = {
         'selector': '.parent',
         'rules': {
           'display': 'flex',
-          'flex-direction': 'row'
+          'flex-direction': 'row',
+          'height': '100%'
          }
       }
     ],
@@ -111,11 +114,50 @@ data[ data.length ] = {
 };
 
 data[ data.length ] = {
+    name: 'flex-flow',
+
+    link: 'http://www.w3.org/TR/css3-flexbox/#flex-flow-property',
+    target: 'flex container',
+
+    desc: '<p>The <b>flex-flow</b> property is a shorthand for setting the <b>flex-direction</b> and <b>flex-wrap</b> properties, which together define the flex container’s main and cross axes.</p>',
+
+    initValue: 'row nowrap',
+    customValues: [
+      { name: 'row nowrap', current: true },
+      { name: 'column-reverse'},
+      { name: 'column wrap'},
+      { name: 'row-reverse wrap-reverse'}
+    ],
+    cssRules: [
+      {
+        'selector': '.parent',
+        'rules': {
+          'display': 'flex',
+          'flex': 'row nowrap',
+          'height': '100%',
+         }
+      },
+      {
+        'selector': '.child',
+        'rules': {
+          'width': '40%',
+          'height': '40%'
+        }
+      }
+    ],
+};
+
+data[ data.length ] = {
     name: 'order',
 
     link: '',
     target: 'flex items',
     initValue: '0',
+    customValues: [
+      { name: '-1', current: true },
+      { name: '0'},
+      { name: '1'}
+    ],
     cssRules: [
       {
         'selector': '.parent',
@@ -129,7 +171,7 @@ data[ data.length ] = {
         'selector': '.child--featured',
         'rules': {
           'order': '-1',
-          'background-color': 'gold',
+          'background-color': accentColor,
         }
       }
     ],
@@ -242,7 +284,7 @@ data[ data.length ] = {
       {
         'selector': '.child--featured',
         'rules': {
-          'background-color': 'gold'
+          'background-color': accentColor,
         }
       }
     ],
@@ -255,7 +297,6 @@ data[ data.length ] = {
     target: 'flex container',
 
     desc: '<p>The <b>align-content</b> property aligns a flex container’s lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.</p> <p><b>Note, this property has no effect on a single-line flex container.</b></p>',
-
 
     values: [
         {
@@ -298,6 +339,122 @@ data[ data.length ] = {
         'selector': '.child',
         'rules': {
           'width': '30%'
+        }
+      }
+    ],
+};
+
+data[ data.length ] = {
+    name: 'Flexibility',
+    type: 'subheader'
+};
+
+data[ data.length ] = {
+  name: 'flex-grow',
+
+  link: 'http://www.w3.org/TR/css3-flexbox/#flex-grow-property',
+
+  initValue: '0',
+
+  target: 'flex items',
+
+  desc: '<p>The <code>flex-grow</code> property sets the <code>flex grow factor</code> to the provided <dfn class="css" data-dfn-for="flex-grow" data-dfn-type="value" data-export="" id="valdef-flex-grow-number"><code>&lt;number&gt;</code><code></code></dfn>.	Negative numbers are invalid.</p>',
+
+  customValues: [
+    { name: '0' },
+    { name: '1', current: true }
+  ],
+
+  cssRules: [
+    {
+      'selector': '.parent',
+      'rules': {
+        'display': 'flex',
+        'height': '100%',
+       }
+    },
+    {
+      'selector': '.child--featured',
+      'rules': {
+        'flex-grow': '1',
+        'background-color': accentColor
+      }
+    }
+  ],
+};
+
+data[ data.length ] = {
+  name: 'flex-shrink',
+
+  link: 'http://www.w3.org/TR/css3-flexbox/#flex-shrink-property',
+
+  initValue: '1',
+
+  target: 'flex items',
+
+  desc: '<p>The <code>flex-shrink</code> property sets the <code>flex shrink factor</code> to the provided <dfn class="css" data-dfn-for="flex-shrink" data-dfn-type="value" data-export="" id="valdef-flex-shrink-number"><code>&lt;number&gt;</code><code></code></dfn>.	Negative numbers are invalid.</p>',
+
+  customValues: [
+    { name: '0' },
+    { name: '1', current: true }
+  ],
+
+  cssRules: [
+    {
+      'selector': '.parent',
+      'rules': {
+        'display': 'flex',
+        'height': '100%',
+       }
+    },
+    {
+      'selector': '.child',
+      'rules': {
+        'width': '40%'
+      }
+    },
+    {
+      'selector': '.child--featured',
+      'rules': {
+        'flex-shrink': '1',
+        'background-color': accentColor
+      }
+    }
+  ],
+
+
+};
+
+data[ data.length ] = {
+    name: 'flex-basis',
+
+    link: 'http://www.w3.org/TR/css3-flexbox/#flex-basis-property',
+
+    initValue: 'auto',
+
+    target: 'flex items',
+
+    desc: '<p>The <code>flex-basis</code> property sets the <code>flex basis</code>.	It accepts the same values as the <code>width</code> and <code>height</code> property, plus <code>content</code>.</p><p>For all values other than <code>auto</code> and <code>content</code> (defined above), <code>flex-basis</code> is resolved the same way as <code>width</code> in horizontal writing modes, except that if a value would resolve to <span class="css">auto</span> for <code>width</code>, it instead resolves to <code>content</code> for <code>flex-basis</code>. For example, percentage values of <code>flex-basis</code> are resolved against the flex item’s containing block (i.e. its <code>flex container</code>); and if that containing block’s size is <code>indefinite</code>, the used value for <code>flex-basis</code> is <code>content</code>. As another corollary, <code>flex-basis</code> determines the size of the content box, unless otherwise specified such as by <code>box-sizing</code>.</p>',
+
+    customValues: [
+      { name: '30%', current: true },
+      { name: '50%'},
+      { name: 'content'}
+    ],
+    cssRules: [
+      {
+        'selector': '.parent',
+        'rules': {
+          'display': 'flex',
+          'flex-wrap': 'wrap',
+          'align-content': 'center',
+          'height': '100%',
+         }
+      },
+      {
+        'selector': '.child--featured',
+        'rules': {
+          'flex-basis': '30%'
         }
       }
     ],

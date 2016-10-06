@@ -22,18 +22,16 @@
 .demo {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
     }
 .demo__view {
     border: 3px solid $col-3;
     width: 50%;
-    height: 250px;
+    height: 300px;
     padding: .5rem;
     box-sizing: border-box;
     margin-right: 1rem;
     }
 .demo__code {
-    height: 250px;
     box-sizing: border-box;
     flex-grow: 1;
     flex-shrink: 0;
@@ -53,7 +51,6 @@
 .child {
     position: relative;
     min-width: 2rem;
-    // max-width: 3rem;
     min-height: 2rem;
     padding: .5rem;
     background: $col-3;

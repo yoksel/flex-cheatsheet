@@ -31,6 +31,20 @@ Ul, LI {
     padding: 0;
 }
 
+MARK {
+  box-shadow: 0 0 0 2px $col-4;
+  background: $col-4;
+  color: $col-2;
+}
+
+CODE {
+  padding: .1rem .3rem;
+  background: $col-2;
+  border-radius: 3px;
+  color: $col-5;
+  font-size: .95em;
+}
+
 /* Content
 ---------------------------- */
 .content {
