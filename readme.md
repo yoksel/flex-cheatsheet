@@ -1,5 +1,4 @@
-# flex-cheatsheet
+# Flexbox cheatsheet (under construction)
 
-Hello, world! 123
-Hello! Did you see a dragon?
+http://yoksel.github.io/flex-cheatsheet/
 
