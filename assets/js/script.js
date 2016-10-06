@@ -35,8 +35,9 @@ function createContent () {
 
     head.appendChild( stylesHolder );
     main.appendChild( contentHolder );
-    navHolder.appendChild( navMarker );
     aside.appendChild( navHolder );
+    navHolder.appendChild( navMarker );
+    setCurrentNavItem( navItems[0] );
 
 }
 
@@ -91,10 +92,6 @@ Item.prototype.navItemElem = function () {
 
     var classList = ['nav__item', 'nav__item--' + this.dataItem.name];
 
-    if ( this.pos === 0 ) {
-      classList.push( navItemCurrentClass );
-    }
-
     var elemProps = {
         'class': classList.join(' '),
         'data-name': this.dataItem.name,
@@ -103,7 +100,6 @@ Item.prototype.navItemElem = function () {
 
     var elem = $.create('li', elemProps);
     navItems[ this.dataItem.name ] = elem;
-
     return elem;
 }
 
@@ -159,6 +155,10 @@ function navItemValueLink( value, property ) {
 
 function setCurrentNavItem ( elem ) {
     var parent = undefined;
+
+    if ( !elem ) {
+      return;
+    }
 
     unsetClass ( navItemCurrentClass );
 
