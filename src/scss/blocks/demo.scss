@@ -22,19 +22,28 @@
 .demo {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     }
 .demo__view {
-    border: 3px solid $col-3;
     width: 50%;
-    height: 300px;
+    flex-grow: 1;
+    min-height: 300px;
+    margin: 0 1rem 1rem 0;
     padding: .5rem;
     box-sizing: border-box;
-    margin-right: 1rem;
+    border: 3px solid $col-3;
+
+    @media ( max-width: 960px ) {
+        width: 100%;
+        min-height: 200px;
+        margin-right: 0;
+      }
     }
 .demo__code {
     box-sizing: border-box;
     flex-grow: 1;
     flex-shrink: 0;
+    margin-bottom: 1rem;
     padding: 1rem;
     background: $col-2;
     // border: 3px solid $col-3
