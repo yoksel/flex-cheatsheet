@@ -9,6 +9,11 @@ var navHolder = $.create('ul',{'class':'nav'});
 var contentHolder = $.create('div',{'class':'content'});
 var stylesHolder = $.create('style',{'id':'flex'});
 
+var navMarker = $.create('div',{'class':'nav__marker'});
+
+var sections = [];
+var navItems = {};
+
 var demoWrapper = $('.demo-wrapper');
 var codeWrapper = $('.code-wrapper');
 
@@ -30,6 +35,7 @@ function createContent () {
 
     head.appendChild( stylesHolder );
     main.appendChild( contentHolder );
+    navHolder.appendChild( navMarker );
     aside.appendChild( navHolder );
 
 }
@@ -37,7 +43,6 @@ function createContent () {
 //---------------------------------------------
 // CONTENT
 //---------------------------------------------
-
 
 function Item ( item, pos ){
     this.dataItem = item;
@@ -92,10 +97,12 @@ Item.prototype.navItemElem = function () {
 
     var elemProps = {
         'class': classList.join(' '),
+        'data-name': this.dataItem.name,
         'contents': contents
     };
 
     var elem = $.create('li', elemProps);
+    navItems[ this.dataItem.name ] = elem;
 
     return elem;
 }
@@ -151,14 +158,23 @@ function navItemValueLink( value, property ) {
 //---------------------------------------------
 
 function setCurrentNavItem ( elem ) {
+    var parent = undefined;
 
     unsetClass ( navItemCurrentClass );
 
     elem = elem.nodeType == 1 ? elem : this;
 
-    var parent = $('.nav__item--' + elem.dataset.parentNavItem);
+    if ( elem.dataset.parentNavItem ) {
+      parent = $('.nav__item--' + elem.dataset.parentNavItem);
+    }
+    else {
+      parent = elem;
+    }
 
-    parent.classList.add( navItemCurrentClass );
+    if ( parent ) {
+      parent.classList.add( navItemCurrentClass );
+      navMarker.style.top = parent.offsetTop + 'px';
+    }
 }
 
 //---------------------------------------------
@@ -193,6 +209,7 @@ Item.prototype.ContentItemElem = function ( ) {
     };
 
     var elem = $.create('section', elemProps);
+    sections.push( elem );
     return elem;
 }
 
@@ -370,7 +387,7 @@ Item.prototype.contentItemDemoValues = function () {
     var parentItem = this;
     var hasCurrent = false;
 
-    console.log( this.dataItem );
+    // console.log( this.dataItem );
     if ( !this.dataItem.values && !this.dataItem.customValues ) {
         return;
     }
@@ -571,6 +588,34 @@ function unsetClass ( className ) {
     if ( current ) {
         current.classList.remove( className );
     }
+}
+
+//---------------------------------------------
+
+window.onscroll = function() {
+  sections.forEach( function( item, i ) {
+    if( isVisible( item ) ) {
+      // console.log( item.id, navItems[ item.id ] );
+      setCurrentNavItem ( navItems[ item.id ] );
+    }
+  });
+}
+
+//---------------------------------------------
+
+// Source: https://learn.javascript.ru/onscroll
+function isVisible(elem) {
+
+  var coords = elem.getBoundingClientRect();
+  var koeff = 300;
+
+  var windowHeight = document.documentElement.clientHeight;
+
+  // верхняя граница elem в пределах видимости ИЛИ нижняя граница видима
+  var topVisible = coords.top > 0 && coords.top < windowHeight / 2;
+  var bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+  return topVisible || bottomVisible;
 }
 
 //---------------------------------------------

@@ -57,7 +57,7 @@ $nav-grad-step: .5rem;
         color: $col-1;
         }
         &__item--current &__link:after {
-            content: "";
+            content: none; /* hide elem */
             display: block;
             position: absolute;
             top: 0;
@@ -68,7 +68,6 @@ $nav-grad-step: .5rem;
             margin: auto;
             background: $col-1;
             border-radius: 50%;
-            /*box-shadow: 0 0 0 10px rgba(0,0,0,.2);*/
             box-shadow: 0 0 0 10px $col-4;
         }
     }
@@ -90,3 +89,16 @@ $nav-grad-step: .5rem;
         color: $col-2;
         }
     }
+
+.nav__marker {
+  position: absolute;
+  top: 0;
+  right: -1rem;
+  width: 2rem;
+  height: 2rem;
+  margin: auto;
+  background: $col-1;
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px $col-4;
+  transition: all .5s linear;
+}
