@@ -272,7 +272,30 @@ data[ data.length ] = {
 
     target: 'flex items',
 
-    values: data[ data.length - 1 ].values,
+    values: [
+        {
+            name: 'flex-start',
+            desc: 'The cross-start margin edge of the flex item is placed flush with the cross-start edge of the line.',
+            current: true
+        },
+        {
+            name: 'flex-end',
+            desc: 'The cross-end margin edge of the flex item is placed flush with the cross-end edge of the line.'
+        },
+        {
+            name: 'center',
+            desc: 'The flex item’s margin box is centered in the cross axis within the line. (If the cross size of the flex line is less than that of the flex item, it will overflow equally in both directions.)'
+        },
+        {
+            name: 'baseline',
+            desc: 'If the flex item’s inline axis is the same as the cross axis, this value is identical to flex-start. Otherwise, it participates in baseline alignment: all participating flex items on the line are aligned such that their baselines align, and the item with the largest distance between its baseline and its cross-start margin edge is placed flush against the cross-start edge of the line.'
+        },
+        {
+            name: 'stretch',
+            desc: 'If the cross size property of the flex item computes to auto, and neither of the cross-axis margins are auto, the flex item is stretched. Its used value is the length necessary to make the cross size of the item’s margin box as close to the same size as the line as possible, while still respecting the constraints imposed by min-height/min-width/max-height/max-width.'
+        }
+    ],
+
     cssRules: [
       {
         'selector': '.parent',
@@ -284,6 +307,7 @@ data[ data.length ] = {
       {
         'selector': '.child--featured',
         'rules': {
+          'align-self': 'flex-start',
           'background-color': accentColor,
         }
       }

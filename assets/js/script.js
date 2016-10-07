@@ -402,9 +402,13 @@ Item.prototype.contentItemDemoValues = function () {
         var value = values[i];
         var valElem = new DemoControl( this, value );
 
+        console.log( value );
+
         if ( value.current && value.current === true ) {
           valElem.classList.add( demoValueClassCurrent );
           hasCurrent = true;
+
+          console.log( 'value has current' );
         }
         else if ( !this.dataItem.customValues
           && !hasCurrent
@@ -592,18 +596,8 @@ function unsetClass ( className ) {
 
 //---------------------------------------------
 
-window.onscroll = function() {
-  sections.forEach( function( item, i ) {
-    if( isVisible( item ) ) {
-      // console.log( item.id, navItems[ item.id ] );
-      setCurrentNavItem ( navItems[ item.id ] );
-    }
-  });
-}
-
-//---------------------------------------------
-
 // Source: https://learn.javascript.ru/onscroll
+
 function isVisible(elem) {
 
   var coords = elem.getBoundingClientRect();
@@ -617,6 +611,44 @@ function isVisible(elem) {
 
   return topVisible || bottomVisible;
 }
+
+//---------------------------------------------
+
+// Source: https://davidwalsh.name/javascript-debounce-function
+
+// Returns a function, that, as long as it continues to be invoked, will not
+// be triggered. The function will be called after it stops being called for
+// N milliseconds. If `immediate` is passed, trigger the function on the
+// leading edge, instead of the trailing.
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function() {
+    var context = this, args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
+//---------------------------------------------
+
+var myEfficientFn = debounce(function() {
+
+  sections.forEach( function( item, i ) {
+    if( isVisible( item ) ) {
+      // console.log( item.id, navItems[ item.id ] );
+      setCurrentNavItem ( navItems[ item.id ] );
+    }
+  });
+
+}, 100);
+
+window.addEventListener('scroll', myEfficientFn);
 
 //---------------------------------------------
 
