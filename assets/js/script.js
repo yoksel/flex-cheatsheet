@@ -402,13 +402,9 @@ Item.prototype.contentItemDemoValues = function () {
         var value = values[i];
         var valElem = new DemoControl( this, value );
 
-        console.log( value );
-
         if ( value.current && value.current === true ) {
           valElem.classList.add( demoValueClassCurrent );
           hasCurrent = true;
-
-          console.log( 'value has current' );
         }
         else if ( !this.dataItem.customValues
           && !hasCurrent
@@ -416,10 +412,7 @@ Item.prototype.contentItemDemoValues = function () {
             valElem.classList.add( demoValueClassCurrent );
             hasCurrent = true;
         }
-        // else ( !hasCurrent ) {
-        //
-        // }
-
+        
         items = items.concat(valElem);
     };
 
