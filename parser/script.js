@@ -3,9 +3,10 @@
 var $ = tinyLib;
 
 var doc = document;
-var inputText = doc.querySelector('#code-input')
-var outputText = doc.querySelector('#code-output')
-var view = doc.querySelector('.view')
+var inputText = doc.querySelector('#code-input');
+var outputText = doc.querySelector('#code-output');
+var view = doc.querySelector('.view');
+var linkToSpec = 'https://www.w3.org/TR/css-flexbox-1/';
 
 //---------------------------------------------
 
@@ -16,7 +17,7 @@ function parseCode() {
   var propsList = $.get( '.propdef' );
   var offset = '  ';
 
-  if ( propsList == undefined ) {
+  if ( propsList === undefined ) {
     return;
   }
 
@@ -27,32 +28,58 @@ function parseCode() {
     // console.log( propItem.getPropName() );
 
     var outPuts = [
-      [ offset + "name", propItem.name ],
-      [ offset + "link", propItem.link ],
-      [ offset + "initValue", propItem.initVal ],
-      [ offset + "target", propItem.getTarget() ],
-      [ offset + "desc", propItem.desc ],
-      [ offset + "values", propItem.values ]
+      [
+        offset + 'name',
+        propItem.name
+      ],
+      [
+        offset + 'link',
+        propItem.link
+      ],
+      [
+        offset + 'initValue',
+        propItem.initVal
+      ],
+      [
+        offset + 'target',
+        propItem.target
+      ],
+      [
+        offset + 'desc',
+        propItem.desc
+      ],
+      [
+        offset + 'values',
+        propItem.values
+      ]
     ];
 
     var outPutsStrings = [];
 
     outPuts.forEach( function( item ) {
+      var content = item[1];
+
+      if ( typeof content === 'string') {
+        content = '\'' + content + '\'';
+      }
+      else if ( typeof content === 'object') {
+        content = JSON.stringify( content, null, '  ' );
+        content = content.replace(/\\"/g,'*');
+        content = content.replace(/"/g,'\'');
+        content = content.replace(/\*/g,'"');
+        content = content.replace(/: ' /g,': \'');
+        content = content.replace(/\. '/g,'.\'');
+      }
+      item[1] = content;
+
       outPutsStrings.push( item.join(': '));
     });
 
-    output += 'data[ data.length] = {\n' + outPutsStrings.join(',\n\n') + '\n}\n\n';
-
-    // $.out('outPuts', 'h3');
-    // console.log( outPuts );
-    $.out(outPuts[0][1], 'h3');
-    console.table( outPuts );
+    output += 'data[ data.length] = {\n' + outPutsStrings.join(',\n\n') + '\n};\n\n';
 
   });
 
   outputText.value = output;
-
-// outputText.value = JSON.stringify(outPuts);
 
 // output += 'customValues: [],\n\n';
   // output += 'cssRules: [],\n\n';
@@ -70,7 +97,8 @@ function Item( elem ) {
   this.initVal = this.getInitVal();
   this.values = this.getValues();
   this.desc = this.getPropDesc();
-};
+  this.target = this.getTarget();
+}
 
 //---------------------------------------------
 
@@ -83,12 +111,12 @@ Item.prototype.getPropName = function() {
   }
 
   return '';
-}
+};
 
 //---------------------------------------------
 
 Item.prototype.getPropLink = function () {
-  return 'http://www.w3.org/TR/css3-flexbox/#' + this.name + '-property';
+  return linkToSpec + this.name + '-property';
 };
 
 //---------------------------------------------
@@ -100,8 +128,8 @@ Item.prototype.getInitVal = function () {
     return elem.innerText;
   }
 
-  return '';
-}
+  return null;
+};
 
 //---------------------------------------------
 
@@ -112,8 +140,8 @@ Item.prototype.getTarget = function () {
     return elem.innerText;
   }
 
-  return '';
-}
+  return null;
+};
 
 //---------------------------------------------
 
@@ -132,10 +160,16 @@ Item.prototype.getValues = function () {
         values.push( { name: item.innerText } );
       }
       else if ( item.tagName === 'DD' ) {
-        values[ values.length-1].desc = item.innerHTML;
+        var desc = item.innerHTML;
+        desc = clearText( desc );
+        values[ values.length-1].desc = desc;
       }
     });
+
+
+    // $.out('Values','h4');
     // console.log( values );
+    // console.log( JSON.stringify( values ));
   }
   return values;
 };
@@ -157,7 +191,7 @@ function findNextElem( elem ) {
       tags.length++;
     }
 
-    tags[ elem.tagName ].push( elem )
+    tags[ elem.tagName ].push( elem );
     // console.log( counter, elem.tagName );
     counter++;
   }
@@ -178,19 +212,36 @@ Item.prototype.getPropDesc = function() {
 
     childNodes.forEach ( function ( item ) {
       if ( item.tagName === 'P' ) {
-        descItems.push( item.innerHTML );
+        var content = item.outerHTML;
+        content = clearText( content );
+
+        descItems.push( content );
       }
     });
-
-    $.out('descItems', 'h4');
-    console.log( descItems );
   }
 
-  // propDesc = propDesc.replace(/<a([^>]+)>/g, '<code>');
-  // propDesc = propDesc.replace(/<\/a>/g, '</code>');
-  // propDesc = propDesc.replace(/[\n]/g, '');
+  return descItems.join('');
+};
 
-  return descItems.join('\n');
+//---------------------------------------------
+
+function clearText( text ) {
+  // text = text.replace(/#(.*?)"/g, linkToSpec + '$&');
+  text = text.replace(/<a (.*?)>/g,'<i>');
+  text = text.replace(/<\/a>/g,'</i>');
+  text = text.replace(/<i><\/i>/g,'');
+  text = text.replace(/ data-link-type="(.*?)"/g, '');
+  text = text.replace(/ data-dfn-type="(.*?)"/g, '');
+  text = text.replace(/ data-export="(.*?)"/g, '');
+  text = text.replace(/ id="(.*?)"/g, '');
+  text = text.replace(/ class="(.*?)"/g, '');
+  text = text.replace(/\n/g, ' ');
+  text = text.replace(/  /g, ' ');
+  text = text.replace(/  /g, ' ');
+  text = text.replace(/  /g, ' ');
+  // text = text.replace(/\"/g,'\'');
+
+  return text;
 }
 
 //---------------------------------------------
