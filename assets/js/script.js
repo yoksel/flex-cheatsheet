@@ -31,7 +31,7 @@ function createContent () {
 
     for (var i = 0; i < data.length; i++) {
         var item = new Item( data[i], i );
-    };
+    }
 
     head.appendChild( stylesHolder );
     main.appendChild( contentHolder );
@@ -101,7 +101,7 @@ Item.prototype.navItemElem = function () {
     var elem = $.create('li', elemProps);
     navItems[ this.dataItem.name ] = elem;
     return elem;
-}
+};
 
 //---------------------------------------------
 
@@ -114,7 +114,7 @@ Item.prototype.navItemValues = function () {
 
     for (var i = 0; i < this.dataItem.values.length; i++) {
         items = items.concat( navItemValueLink( this.dataItem.values[i], this.dataItem.name ) );
-    };
+    }
 
     var elemProps = {
         'class':'values values-nav',
@@ -123,7 +123,7 @@ Item.prototype.navItemValues = function () {
 
     var elem = $.create('ul', elemProps);
     return elem;
-}
+};
 
 //---------------------------------------------
 
@@ -154,7 +154,7 @@ function navItemValueLink( value, property ) {
 //---------------------------------------------
 
 function setCurrentNavItem ( elem ) {
-    var parent = undefined;
+    var parent;
 
     if ( !elem ) {
       return;
@@ -211,7 +211,7 @@ Item.prototype.ContentItemElem = function ( ) {
     var elem = $.create('section', elemProps);
     sections.push( elem );
     return elem;
-}
+};
 
 //---------------------------------------------
 
@@ -224,7 +224,7 @@ Item.prototype.contentItemTitle = function () {
 
     var elem = $.create('h2', elemProps);
     return elem;
-}
+};
 
 //---------------------------------------------
 
@@ -244,7 +244,7 @@ Item.prototype.contentItemLink = function () {
 
     var elem = $.create('a', elemProps);
     return elem;
-}
+};
 
 //---------------------------------------------
 
@@ -263,7 +263,7 @@ Item.prototype.contentItemInitial = function () {
     elem.innerHTML = '<b>Initial</b>: ' + this.dataItem.initValue + '.';
 
     return elem;
-}
+};
 
 //---------------------------------------------
 
@@ -290,7 +290,7 @@ Item.prototype.contentItemDemo = function () {
     // console.log(this);
 
     return this.demoWrapper;
-}
+};
 
 //---------------------------------------------
 
@@ -305,7 +305,7 @@ Item.prototype.contentItemGetCSS = function () {
     rules.forEach( function(item, i){
       var rulesListHidden = '';
       var rulesListVisible = '';
-      var styles = ''
+      var styles = '';
 
       for (var rule in item.rules ) {
         var ruleString = rule + ': ' + item.rules[ rule ] + ';\n';
@@ -336,7 +336,7 @@ Item.prototype.contentItemGetCSS = function () {
 
     // console.log(this);
   }
-}
+};
 
 //---------------------------------------------
 
@@ -348,7 +348,7 @@ Item.prototype.contentItemSetCSS = function () {
   this.stylesElem.innerHTML = this.hiddenStyles;
 
   head.appendChild( this.stylesElem );
-}
+};
 
 //---------------------------------------------
 
@@ -356,7 +356,7 @@ Item.prototype.contentItemChangeCSSProp = function (  ) {
 
   var rules = this.dataItem.cssRules;
   var current = this.currentValue;
-  var targetSelector = this.targetElemSelector
+  var targetSelector = this.targetElemSelector;
   var prop = this.dataItem.name;
   var that = this;
 
@@ -412,9 +412,9 @@ Item.prototype.contentItemDemoValues = function () {
             valElem.classList.add( demoValueClassCurrent );
             hasCurrent = true;
         }
-        
+
         items = items.concat(valElem);
-    };
+    }
 
     var elemProps = {
         'class':'demo-values',
@@ -443,7 +443,7 @@ Item.prototype.contentItemDesc = function () {
     elem.innerHTML = this.dataItem.desc;
 
     return elem;
-}
+};
 
 //---------------------------------------------
 
@@ -471,7 +471,7 @@ Item.prototype.contentItemValues = function () {
             textContent: value.desc,
             class: 'content-values__desc',
             });
-    };
+    }
 
     var elemProps = {
         'class':'content-values',
@@ -480,7 +480,7 @@ Item.prototype.contentItemValues = function () {
 
     var elem = $.create('dl', elemProps);
     return elem;
-}
+};
 
 //---------------------------------------------
 // DEMO CONTROLS
@@ -510,8 +510,8 @@ function DemoControl( parentObj, value ) {
         }
 
         parentObj.currentElem = this;
-        this.classList.add( demoValueClassCurrent )
-    }
+        this.classList.add( demoValueClassCurrent );
+    };
 
     return this.elem;
 }
@@ -552,7 +552,7 @@ Item.prototype.StylesItem = function () {
                 ].join('\n');
 
         }
-    };
+    }
 
     // console.log( parentStyles );
 
@@ -573,7 +573,7 @@ Item.prototype.StylesItem = function () {
     stylesHolder.innerHTML += containerStyles;
 
     // console.log( stylesHolder.innerHTML );
-}
+};
 
 //---------------------------------------------
 // COMMON
@@ -626,7 +626,7 @@ function debounce(func, wait, immediate) {
     timeout = setTimeout(later, wait);
     if (callNow) func.apply(context, args);
   };
-};
+}
 
 //---------------------------------------------
 
