@@ -21,8 +21,14 @@
 
         //---------------------------------
 
-        tinyLib.get = function( selector ) {
-          var nodeList = doc.querySelectorAll( selector );
+        tinyLib.get = function( selector, context ) {
+
+          var contextElem = context ? context : doc;
+          if ( context && context.elem  ) {
+            contextElem = context.elem;
+          }
+
+          var nodeList = contextElem.querySelectorAll( selector );
           var elemsArr = Array.prototype.slice.call( nodeList );
 
           var elemsList = elemsArr.map( function( item ) {
@@ -87,14 +93,15 @@
         //---------------------------------
 
         ElemSet.prototype.append = function( elem ) {
+          var itemsToAdd = inputElemToItemsList( elem );
+          var that = this;
 
-          var elemToAdd = elem.elem;
-
-          if ( typeof elem === 'string' ) {
-            elemToAdd = tinyLib.create( elem ).elem;
-          }
-
-          this.elem.appendChild( elemToAdd );
+          itemsToAdd.forEach( function( item ) {
+            if ( !item ) {
+              return;
+            }
+            that.elem.appendChild( item.elem );
+          });
 
           return this;
         };
@@ -102,16 +109,26 @@
         //---------------------------------
 
         ElemSet.prototype.prepend = function( elem ) {
+          var itemsToAdd = inputElemToItemsList( elem );
+          var that = this;
 
-          var elemToAdd = elem.elem;
-
-          if ( typeof elem === 'string' ) {
-            elemToAdd = tinyLib.create( elem ).elem;
-          }
-
-          this.elem.insertBefore( elemToAdd, this.elem.firstChild );
+          itemsToAdd.forEach( function( item ) {
+            if ( !item ) {
+              return;
+            }
+            that.elem.insertBefore( item.elem, that.elem.firstChild );
+          });
 
           return this;
+        };
+
+        //---------------------------------
+
+        ElemSet.prototype.clone = function() {
+          var elemToClone = this.elem;
+          var clonedElem = elemToClone.cloneNode(true);
+
+          return new ElemSet( clonedElem );
         };
 
         //---------------------------------
@@ -165,6 +182,45 @@
         };
 
         //---------------------------------
+
+        ElemSet.prototype.data = function ( content ) {
+          var elem = this.elem;
+
+          if( content ) {
+            // Input: list
+            if ( Array.isArray( content ) === true ) {
+              var dataList = {};
+
+              content.forEach(function( item ) {
+                var data = elem.dataset[ item ];
+                if ( data ) {
+                  dataList[ item ] = data;
+                }
+              });
+
+              return dataList;
+            }
+            // Input: object
+            else if ( typeof content === 'object' ) {
+
+              for( var key in content ) {
+                elem.dataset[ key ] = content[ key ];
+              }
+
+              return elem.dataset;
+            }
+            // Input: string
+            else if( typeof content === 'string' ) {
+              var data = elem.dataset[ content ];
+              return data;
+            }
+
+          }
+
+          return null;
+        };
+
+        //---------------------------------
         // Colored console output
 
         var consoleStyles = {
@@ -185,6 +241,26 @@
         tinyLib.dir = function( msg ) {
           console.dir( msg );
         };
+
+        //---------------------------------
+
+        function inputElemToItemsList( elem ) {
+          var elemToAdd = elem;
+          var itemsToAdd = [];
+
+          if ( typeof elem === 'string' ) {
+            elemToAdd = tinyLib.create( elem );
+            itemsToAdd.push( elemToAdd );
+          }
+          else if ( Array.isArray( elem ) === true ) {
+            itemsToAdd = elem;
+          }
+          else {
+            itemsToAdd.push( elemToAdd );
+          }
+
+          return itemsToAdd;
+        }
 
         //---------------------------------
 
