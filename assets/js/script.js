@@ -1,21 +1,22 @@
-// var tl = tinyLib;
+var $ = tinyLib;
 
 var doc = document;
-var aside = $('.l-aside');
-var main = $('.l-main');
-var head = $('head');
+var aside = $.get('.l-aside');
+var main = $.get('.l-main');
+var head = $.get('head');
 
-var navHolder = $.create('ul',{'class':'nav'});
-var contentHolder = $.create('div',{'class':'content'});
-var stylesHolder = $.create('style',{'id':'flex'});
+var navHolder = $.create('ul').addClass('nav');
+var contentHolder = $.create('div').addClass('content');
+var stylesHolder = $.create('style').attr({'id':'flex'});
 
-var navMarker = $.create('div',{'class':'nav__marker'});
+var navMarker = $.create('div').addClass('nav__marker');
 
 var sections = [];
 var navItems = {};
+var navItemCurrent;
 
-var demoWrapper = $('.demo-wrapper');
-var codeWrapper = $('.code-wrapper');
+var demoWrapper = $.get('.demo-wrapper');
+var codeWrapper = $.get('.code-wrapper');
 
 var demoValueClassCurrent = 'demo-values__control--current';
 var codeOffset = '  ';
@@ -33,12 +34,12 @@ function createContent () {
         var item = new Item( data[i], i );
     }
 
-    head.appendChild( stylesHolder );
-    main.appendChild( contentHolder );
-    aside.appendChild( navHolder );
-    navHolder.appendChild( navMarker );
-    setCurrentNavItem( navItems[0] );
+    head.append( stylesHolder );
+    main.append( contentHolder );
+    aside.append( navHolder );
+    navHolder.append( navMarker );
 
+    setCurrentNavItem();
 }
 
 //---------------------------------------------
@@ -50,7 +51,7 @@ function Item ( item, pos ){
     this.pos = pos;
 
     var navItem = this.navItemElem();
-    navHolder.appendChild( navItem );
+    navHolder.append( navItem );
 
     if ( this.dataItem.type && this.dataItem.type == 'subheader' ) {
         return;
@@ -59,7 +60,7 @@ function Item ( item, pos ){
     var contentItem = this.ContentItemElem();
     var styles = this.StylesItem();
 
-    contentHolder.appendChild( contentItem );
+    contentHolder.append( contentItem );
 }
 
 //---------------------------------------------
@@ -68,125 +69,66 @@ function Item ( item, pos ){
 
 Item.prototype.navItemElem = function () {
 
-    var contents = [
-        {
-        'tag': 'a',
-        'href': '#' + this.dataItem.name,
-        'class': 'nav__link',
-        'contents': this.dataItem.name,
-        'data-parent-nav-item': this.dataItem.name,
-        'events': { click: setCurrentNavItem }
-        },
-        // this.navItemValues ()
-    ];
+    var elemContent = $.create('a')
+                       .attr({
+                        'href': '#' + this.dataItem.name,
+                        'data-parent-nav-item': this.dataItem.name,
+                        'class': 'nav__link'
+                       })
+                       .html(this.dataItem.name);
+    // need to fix
+    elemContent.elem.onclick = function() {
+      navItemCurrent = elemContent;
+      setCurrentNavItem();
+    };
 
     if ( this.dataItem.type && this.dataItem.type === 'subheader' ) {
-        contents = [
-            {
-            'tag': 'h2',
-            'class': 'nav__subheader',
-            'contents': this.dataItem.name
-            }
-        ];
+        elemContent = $.create('h2')
+                       .attr({
+                        'class': 'nav__subheader'
+                       })
+                       .html(this.dataItem.title);
     }
 
     var classList = ['nav__item', 'nav__item--' + this.dataItem.name];
 
-    var elemProps = {
-        'class': classList.join(' '),
-        'data-name': this.dataItem.name,
-        'contents': contents
-    };
+    var elem = $.create('li')
+                .addClass( classList )
+                .attr( {'data-name' : this.dataItem.name} )
+                .append( elemContent );
 
-    var elem = $.create('li', elemProps);
     navItems[ this.dataItem.name ] = elem;
+
+    if ( !navItemCurrent ) {
+      navItemCurrent = elem;
+    }
+
     return elem;
 };
 
 //---------------------------------------------
 
-Item.prototype.navItemValues = function () {
-    var items = [];
-
-    if ( !this.dataItem.values ) {
-        return;
-    }
-
-    for (var i = 0; i < this.dataItem.values.length; i++) {
-        items = items.concat( navItemValueLink( this.dataItem.values[i], this.dataItem.name ) );
-    }
-
-    var elemProps = {
-        'class':'values values-nav',
-        'contents': items
-    };
-
-    var elem = $.create('ul', elemProps);
-    return elem;
-};
-
-//---------------------------------------------
-
-function navItemValueLink( value, property ) {
-
-    if ( !value.name ) {
-        return;
-    }
-
-    var href = property + '__' + value.name;
-
-    var elemProps = {
-        'class':'value__item values-nav__item',
-        'contents': {
-            tag: 'a',
-            href: '#' + href,
-            textContent: value.name,
-            // 'data-parent-nav-item': property,
-            // events: { click: setCurrentNavValue }
-            }
-    };
-
-    var elem = $.create('li', elemProps);
-
-    return elem;
-}
-
-//---------------------------------------------
-
-function setCurrentNavItem ( elem ) {
+function setCurrentNavItem ( elemSet ) {
     var parent;
+    elemSet = elemSet ? elemSet : navItemCurrent;
 
-    if ( !elem ) {
+    if ( !elemSet.elem ) {
       return;
     }
 
     unsetClass ( navItemCurrentClass );
 
-    elem = elem.nodeType == 1 ? elem : this;
-
-    if ( elem.dataset.parentNavItem ) {
-      parent = $('.nav__item--' + elem.dataset.parentNavItem);
+    if ( elemSet.elem.dataset.parentNavItem ) {
+      parent = $.get('.nav__item--' + elemSet.elem.dataset.parentNavItem);
     }
     else {
-      parent = elem;
+      parent = elemSet;
     }
 
     if ( parent ) {
-      parent.classList.add( navItemCurrentClass );
-      navMarker.style.top = parent.offsetTop + 'px';
+      parent.addClass( navItemCurrentClass );
+      navMarker.elem.style.top = parent.elem.offsetTop + 'px';
     }
-}
-
-//---------------------------------------------
-
-function setCurrentNavValue () {
-
-    var navItemCurrentValClass = 'values-nav__item--current';
-    unsetClass ( navItemCurrentValClass );
-
-    setCurrentNavItem( this );
-    this.parentNode.classList.add( navItemCurrentValClass );
-
 }
 
 //---------------------------------------------
@@ -195,20 +137,19 @@ function setCurrentNavValue () {
 
 Item.prototype.ContentItemElem = function ( ) {
 
-    var elemProps = {
-        'class':'content__item',
-        'id': this.dataItem.name,
-        'contents': [
+    var content = [
             this.contentItemTitle (),
             this.contentItemLink (),
             this.contentItemDemo (),
             this.contentItemDesc (),
             this.contentItemInitial (),
             this.contentItemValues ()
-            ]
-    };
+            ];
 
-    var elem = $.create('section', elemProps);
+    var elem = $.create('section')
+                .addClass('content__item')
+                .attr({id: this.dataItem.name})
+                .append( content );
     sections.push( elem );
     return elem;
 };
@@ -216,13 +157,13 @@ Item.prototype.ContentItemElem = function ( ) {
 //---------------------------------------------
 
 Item.prototype.contentItemTitle = function () {
-    var elemProps = {
-        'class':'content__title',
-        'contents': this.dataItem.name,
-        'id': this.dataItem.name
-    };
+    var elem = $.create('h2')
+                .attr({
+                  'class':'content__title',
+                  'id': this.dataItem.name
+                })
+                .html(this.dataItem.name);
 
-    var elem = $.create('h2', elemProps);
     return elem;
 };
 
@@ -236,13 +177,12 @@ Item.prototype.contentItemLink = function () {
 
     var linkText = this.dataItem.link.replace('http://www.','');
 
-    var elemProps = {
-        'href': this.dataItem.link,
-        'contents': linkText,
-        'class':'content__link',
-    };
-
-    var elem = $.create('a', elemProps);
+    var elem = $.create('a')
+                .attr({
+                    'href': this.dataItem.link,
+                    'class':'content__link',
+                })
+                .html(linkText);
     return elem;
 };
 
@@ -254,13 +194,9 @@ Item.prototype.contentItemInitial = function () {
         return;
     }
 
-    var elemProps = {
-        'class':'content__initial-value',
-    };
-
-    var elem = $.create('p', elemProps);
-
-    elem.innerHTML = '<b>Initial</b>: ' + this.dataItem.initValue + '.';
+    var elem = $.create('p')
+                .addClass('content__initial-value')
+                .html('<b>Initial</b>: ' + this.dataItem.initValue + '.');
 
     return elem;
 };
@@ -268,20 +204,21 @@ Item.prototype.contentItemInitial = function () {
 //---------------------------------------------
 
 Item.prototype.contentItemDemo = function () {
-    this.demoWrapper = $.clone( demoWrapper );
-    this.demoElem = $('.demo', this.demoWrapper);
+    this.demoWrapper = demoWrapper.clone();
+
+    this.demoElem = $.get('.demo', this.demoWrapper);
     this.targetElemSelector = demoElemClasses[ this.dataItem.target ];
 
     if ( this.dataItem.demoBefore ) {
-      var view = $('.demo__view', this.demoWrapper);
-      view.innerHTML = this.dataItem.demoBefore + view.innerHTML;
+      var view = $.get('.demo__view', this.demoWrapper);
+      view.html( this.dataItem.demoBefore + view.html() );
     }
 
     // Class-marker
     this.demoClassName = 'demo--prop-' + this.dataItem.name;
     this.demoClass = '.' + this.demoClassName;
 
-    this.demoElem.classList.add( this.demoClassName );
+    this.demoElem.addClass( this.demoClassName );
 
     this.contentItemDemoValues();
     this.contentItemSetCSS();
@@ -317,7 +254,6 @@ Item.prototype.contentItemGetCSS = function () {
         }
 
         rulesListVisible += codeOffset + ruleString;
-
       }
 
       hiddenStyles += parentClass + ' ' + item.selector + ' {\n';
@@ -327,14 +263,10 @@ Item.prototype.contentItemGetCSS = function () {
       visibleStyles += item.selector + ' {\n';
       visibleStyles += rulesListVisible;
       visibleStyles += '}\n';
-
-
     });
 
     that.visibleStyles = visibleStyles;
     that.hiddenStyles = hiddenStyles;
-
-    // console.log(this);
   }
 };
 
@@ -342,17 +274,18 @@ Item.prototype.contentItemGetCSS = function () {
 
 Item.prototype.contentItemSetCSS = function () {
 
-  this.stylesElem = $.create('style',{ id: 'style-' + this.dataItem.name });
+  this.stylesElem = $.create('style')
+                     .attr({ id: 'style-' + this.dataItem.name });
 
   this.contentItemGetCSS();
-  this.stylesElem.innerHTML = this.hiddenStyles;
+  this.stylesElem.html( this.hiddenStyles );
 
-  head.appendChild( this.stylesElem );
+  head.append( this.stylesElem );
 };
 
 //---------------------------------------------
 
-Item.prototype.contentItemChangeCSSProp = function (  ) {
+Item.prototype.contentItemChangeCSSProp = function () {
 
   var rules = this.dataItem.cssRules;
   var current = this.currentValue;
@@ -366,8 +299,8 @@ Item.prototype.contentItemChangeCSSProp = function (  ) {
         rule.rules[ prop ] = current;
 
         that.contentItemGetCSS();
-        that.stylesElem.innerHTML = that.hiddenStyles;
-        that.codesElem.innerHTML = that.visibleStyles;
+        that.stylesElem.html( that.hiddenStyles );
+        that.codesElem.html( that.visibleStyles );
       }
     });
   }
@@ -376,8 +309,8 @@ Item.prototype.contentItemChangeCSSProp = function (  ) {
 //---------------------------------------------
 
 Item.prototype.contentItemSetCodeText = function () {
-    this.codesElem = $('.demo__code', this.demoWrapper);
-    this.codesElem.innerHTML = this.visibleStyles;
+    this.codesElem = $.get('.demo__code', this.demoWrapper);
+    this.codesElem.html( this.visibleStyles );
 };
 
 //---------------------------------------------
@@ -387,7 +320,6 @@ Item.prototype.contentItemDemoValues = function () {
     var parentItem = this;
     var hasCurrent = false;
 
-    // console.log( this.dataItem );
     if ( !this.dataItem.values && !this.dataItem.customValues ) {
         return;
     }
@@ -403,26 +335,25 @@ Item.prototype.contentItemDemoValues = function () {
         var valElem = new DemoControl( this, value );
 
         if ( value.current && value.current === true ) {
-          valElem.classList.add( demoValueClassCurrent );
+          valElem.addClass( demoValueClassCurrent );
           hasCurrent = true;
         }
         else if ( !this.dataItem.customValues
           && !hasCurrent
           && value.name === this.dataItem.initValue ) {
-            valElem.classList.add( demoValueClassCurrent );
+            valElem.addClass( demoValueClassCurrent );
             hasCurrent = true;
         }
 
         items = items.concat(valElem);
     }
 
-    var elemProps = {
-        'class':'demo-values',
-        'contents': items,
-        'start': this.demoWrapper
-    };
+    var elem = $.create('div')
+                .addClass('demo-values')
+                .append(items);
 
-    var elem = $.create('div', elemProps);
+    this.demoWrapper.prepend( elem );
+
     return elem;
 };
 
@@ -434,13 +365,9 @@ Item.prototype.contentItemDesc = function () {
         return;
     }
 
-    var elemProps = {
-        'class':'content__desc'
-    };
-
-    var elem = $.create('div', elemProps);
-
-    elem.innerHTML = this.dataItem.desc;
+    var elem = $.create('div')
+                .addClass('content__desc')
+                .html(this.dataItem.desc);
 
     return elem;
 };
@@ -458,27 +385,24 @@ Item.prototype.contentItemValues = function () {
         var value = this.dataItem.values[i];
         var id = this.dataItem.name + '__' + value.name;
 
-        items.push(
-            {
-            tag: 'dt',
-            id: id,
-            textContent: value.name,
-            class: 'content-values__term',
-            });
-        items.push(
-            {
-            tag: 'dd',
-            textContent: value.desc,
-            class: 'content-values__desc',
-            });
+        var dt = $.create('dt')
+                  .attr({
+                    id: id,
+                    class: 'content-values__term',
+                  })
+                  .html(value.name);
+        var dd = $.create('dd')
+                  .attr({
+                    class: 'content-values__desc',
+                  })
+                  .html(value.desc);
+
+        items.push(dt, dd);
     }
 
-    var elemProps = {
-        'class':'content-values',
-        'contents': items
-    };
-
-    var elem = $.create('dl', elemProps);
+    var elem = $.create('dl')
+                .addClass('content-values')
+                .append(items);
     return elem;
 };
 
@@ -489,31 +413,30 @@ Item.prototype.contentItemValues = function () {
 function DemoControl( parentObj, value ) {
 
     var valName = value.name;
+    var that = this;
 
-    this.elem = $.create({
-            'tag': 'button',
-            'class': 'demo-values__control',
-            'contents': valName,
-            'name': valName,
-        });
+    this.elemSet = $.create('button')
+                    .addClass('demo-values__control')
+                    .html(valName)
+                    .attr({'name': valName});
 
-    this.elem.onclick = function( ) {
+    this.elemSet.elem.onclick = function( ) {
         parentObj.currentValue = this.innerHTML;
         parentObj.contentItemChangeCSSProp();
 
         if ( !parentObj.currentElem ) {
-          parentObj.currentElem = $('.' + demoValueClassCurrent, this.parentNode);
+          parentObj.currentElem = $.get('.' + demoValueClassCurrent, this.parentNode);
         }
 
         if ( parentObj.currentElem ) {
-          parentObj.currentElem.classList.remove( demoValueClassCurrent );
+          parentObj.currentElem.removeClass( demoValueClassCurrent );
         }
 
-        parentObj.currentElem = this;
-        this.classList.add( demoValueClassCurrent );
+        parentObj.currentElem = that.elemSet;
+        that.elemSet.addClass( demoValueClassCurrent );
     };
 
-    return this.elem;
+    return this.elemSet;
 }
 
 //---------------------------------------------
@@ -521,8 +444,6 @@ function DemoControl( parentObj, value ) {
 //---------------------------------------------
 
 Item.prototype.StylesItem = function () {
-
-    // stylesHolder.innerHTML = '.test { }';
 
     var prop = this.dataItem.name;
     var values = this.dataItem.values;
@@ -554,25 +475,12 @@ Item.prototype.StylesItem = function () {
         }
     }
 
-    // console.log( parentStyles );
-
-
-    // var childsStyles = [
-    //     childClass + ' {',
-    //     prop + ':' + intValue,
-    //     '}'
-    //     ].join('\n');
-
     var containerStyles = [
         parentStyles,
         // childsStyles
         ].join('\n');
 
-    // console.log( containerStyles );
-
-    stylesHolder.innerHTML += containerStyles;
-
-    // console.log( stylesHolder.innerHTML );
+    stylesHolder.elem.innerHTML += containerStyles;
 };
 
 //---------------------------------------------
@@ -580,10 +488,10 @@ Item.prototype.StylesItem = function () {
 //---------------------------------------------
 
 function unsetClass ( className ) {
-    var current = $('.' + className);
+    var current = $.get('.' + className);
 
-    if ( current ) {
-        current.classList.remove( className );
+    if ( current.elem ) {
+        current.removeClass( className );
     }
 }
 
@@ -633,9 +541,8 @@ function debounce(func, wait, immediate) {
 var myEfficientFn = debounce(function() {
 
   sections.forEach( function( item, i ) {
-    if( isVisible( item ) ) {
-      // console.log( item.id, navItems[ item.id ] );
-      setCurrentNavItem ( navItems[ item.id ] );
+    if( isVisible( item.elem ) && navItems[ item.elem.id ].elem ) {
+        setCurrentNavItem ( navItems[ item.elem.id ] );
     }
   });
 
