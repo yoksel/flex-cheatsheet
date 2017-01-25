@@ -3,17 +3,21 @@ var data = [];
 
 data[ data.length ] = {
     name: 'display',
-    link: 'http://www.w3.org/TR/css3-flexbox/#flex-containers',
+
+    link: 'http://www.w3.org/TR/css-flexbox-1/#flex-containers',
     target: 'flex container',
+
+    desc: '<p>A <i>flex container</i> establishes a new <dfn>flex formatting context</dfn> for its contents. This is the same as establishing a block formatting context, except that flex layout is used instead of block layout. For example, floats do not intrude into the flex container, and the flex container’s margins do not collapse with the margins of its contents. <i>Flex containers</i> form a containing block for their contents <i>exactly like block containers do</i>. <i>[CSS21]</i> The <i>overflow</i> property applies to <i>flex containers</i>.</p><p>Flex containers are not block containers, and so some properties that were designed with the assumption of block layout don’t apply in the context of flex layout. In particular:</p><p>If an element’s specified <i>display</i> is <i>inline-flex</i>, then its <i>display</i> property computes to <i>flex</i> in certain circumstances: the table in <i>CSS 2.1 Section 9.7</i> is amended to contain an additional row, with <i>inline-flex</i> in the "Specified Value" column and <i>flex</i> in the "Computed Value" column.</p>',
+
     values: [
         {
             name: 'flex',
-            desc: 'This value causes an element to generate a block-level flex container box.',
+            desc: 'This value causes an element to generate a block-level <i>flex container</i> box.',
             current: true
         },
         {
             name: 'inline-flex',
-            desc: 'This value causes an element to generate an inline-level flex container box.'
+            desc: 'This value causes an element to generate an inline-level <i>flex container</i> box.'
         }
     ],
     initValue: '',
@@ -27,7 +31,8 @@ data[ data.length ] = {
 };
 
 data[ data.length ] = {
-    name: 'Ordering & Orientation',
+    name: 'ordering-orientation',
+    title: 'Ordering & Orientation',
     type: 'subheader'
 };
 
@@ -75,7 +80,7 @@ data[ data.length ] = {
 data[ data.length ] = {
     name: 'flex-wrap',
 
-    link: 'http://www.w3.org/TR/css3-flexbox/#flex-wrap-property',
+    link: 'http://www.w3.org/TR/css-flexbox-1/#flex-wrap-property',
     target: 'flex container',
 
     desc: 'The flex-wrap property controls whether the flex container is single-line or multi-line, and the direction of the cross-axis, which determines the direction new lines are stacked in.',
@@ -116,7 +121,7 @@ data[ data.length ] = {
 data[ data.length ] = {
     name: 'flex-flow',
 
-    link: 'http://www.w3.org/TR/css3-flexbox/#flex-flow-property',
+    link: 'http://www.w3.org/TR/css-flexbox-1/#flex-flow-property',
     target: 'flex container',
 
     desc: '<p>The <b>flex-flow</b> property is a shorthand for setting the <b>flex-direction</b> and <b>flex-wrap</b> properties, which together define the flex container’s main and cross axes.</p>',
@@ -178,14 +183,15 @@ data[ data.length ] = {
 };
 
 data[ data.length ] = {
-    name: 'Alignment',
+    name: 'alignment',
+    title: 'Alignment',
     type: 'subheader'
 };
 
 data[ data.length ] = {
     name: 'justify-content',
 
-    link: 'http://www.w3.org/TR/css3-flexbox/#justify-content-property',
+    link: 'http://www.w3.org/TR/css-flexbox-1/#justify-content-property',
     target: 'flex container',
 
     values: [
@@ -226,7 +232,7 @@ data[ data.length ] = {
 data[ data.length ] = {
     name: 'align-items',
 
-    link: 'http://www.w3.org/TR/css3-flexbox/#propdef-align-items',
+    link: 'http://www.w3.org/TR/css-flexbox-1/#propdef-align-items',
     target: 'flex container',
 
     values: [
@@ -267,7 +273,7 @@ data[ data.length ] = {
 data[ data.length ] = {
     name: 'align-self',
 
-    link: 'http://www.w3.org/TR/css3-flexbox/#propdef-align-self',
+    link: 'http://www.w3.org/TR/css-flexbox-1/#propdef-align-self',
     initValue: 'auto',
 
     target: 'flex items',
@@ -317,7 +323,7 @@ data[ data.length ] = {
 data[ data.length ] = {
     name: 'align-content',
 
-    link: 'http://www.w3.org/TR/css3-flexbox/#align-content-property',
+    link: 'http://www.w3.org/TR/css-flexbox-1/#align-content-property',
     target: 'flex container',
 
     desc: '<p>The <b>align-content</b> property aligns a flex container’s lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.</p> <p><b>Note, this property has no effect on a single-line flex container.</b></p>',
@@ -369,20 +375,21 @@ data[ data.length ] = {
 };
 
 data[ data.length ] = {
-    name: 'Flexibility',
+    name: 'flexibility',
+    title: 'Flexibility',
     type: 'subheader'
 };
 
 data[ data.length ] = {
   name: 'flex-grow',
 
-  link: 'http://www.w3.org/TR/css3-flexbox/#flex-grow-property',
+  link: 'http://www.w3.org/TR/css-flexbox-1/#flex-grow-property',
 
   initValue: '0',
 
   target: 'flex items',
 
-  desc: '<p>The <code>flex-grow</code> property sets the <code>flex grow factor</code> to the provided <dfn class="css" data-dfn-for="flex-grow" data-dfn-type="value" data-export="" id="valdef-flex-grow-number"><code>&lt;number&gt;</code><code></code></dfn>.	Negative numbers are invalid.</p>',
+  desc: '<p>The <code>flex-grow</code> property sets the <code>flex grow factor</code> to the provided <dfn class="css" data-dfn-for="flex-grow" data-dfn-type="value" data-export="" id="valdef-flex-grow-number"><code>&lt;number&gt;</code></dfn>.	Negative numbers are invalid.</p>',
 
   customValues: [
     { name: '0' },
@@ -410,13 +417,13 @@ data[ data.length ] = {
 data[ data.length ] = {
   name: 'flex-shrink',
 
-  link: 'http://www.w3.org/TR/css3-flexbox/#flex-shrink-property',
+  link: 'http://www.w3.org/TR/css-flexbox-1/#flex-shrink-property',
 
   initValue: '1',
 
   target: 'flex items',
 
-  desc: '<p>The <code>flex-shrink</code> property sets the <code>flex shrink factor</code> to the provided <dfn class="css" data-dfn-for="flex-shrink" data-dfn-type="value" data-export="" id="valdef-flex-shrink-number"><code>&lt;number&gt;</code><code></code></dfn>.	Negative numbers are invalid.</p>',
+  desc: '<p>The <code>flex-shrink</code> property sets the <code>flex shrink factor</code> to the provided <dfn class="css" data-dfn-for="flex-shrink" data-dfn-type="value" data-export="" id="valdef-flex-shrink-number"><code>&lt;number&gt;</code></dfn>.	Negative numbers are invalid.</p>',
 
   customValues: [
     { name: '0' },
