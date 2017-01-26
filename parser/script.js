@@ -15,7 +15,7 @@ function parseCode() {
   outputText.value = '';
   var output = '';
   var propsList = $.get( '.propdef' );
-  var offset = '  ';
+  var offset = '    ';
 
   if ( propsList === undefined ) {
     return;
@@ -62,13 +62,8 @@ function parseCode() {
       if ( typeof content === 'string') {
         content = '\'' + content + '\'';
       }
-      else if ( typeof content === 'object') {
-        content = JSON.stringify( content, null, '  ' );
-        content = content.replace(/\\"/g,'*');
-        content = content.replace(/"/g,'\'');
-        content = content.replace(/\*/g,'"');
-        content = content.replace(/: ' /g,': \'');
-        content = content.replace(/\. '/g,'.\'');
+      else if ( content && typeof content === 'object') {
+        content = beautyJSON( content );
       }
       item[1] = content;
 
@@ -116,7 +111,7 @@ Item.prototype.getPropName = function() {
 //---------------------------------------------
 
 Item.prototype.getPropLink = function () {
-  return linkToSpec + this.name + '-property';
+  return linkToSpec + '#' + this.name + '-property';
 };
 
 //---------------------------------------------
@@ -226,22 +221,57 @@ Item.prototype.getPropDesc = function() {
 //---------------------------------------------
 
 function clearText( text ) {
-  // text = text.replace(/#(.*?)"/g, linkToSpec + '$&');
-  text = text.replace(/<a (.*?)>/g,'<i>');
-  text = text.replace(/<\/a>/g,'</i>');
-  text = text.replace(/<i><\/i>/g,'');
-  text = text.replace(/ data-link-type="(.*?)"/g, '');
-  text = text.replace(/ data-dfn-type="(.*?)"/g, '');
-  text = text.replace(/ data-export="(.*?)"/g, '');
-  text = text.replace(/ id="(.*?)"/g, '');
-  text = text.replace(/ class="(.*?)"/g, '');
+
+  text = text.replace(/class="(.*?)"/g, '');
+  text = text.replace(/data-link-type="(.*?)"/g, '');
+  text = text.replace(/data-dfn-type="(.*?)"/g, '');
+  text = text.replace(/data-dfn-for="(.*?)"/g, '');
+  text = text.replace(/data-export="(.*?)"|data-noexport="(.*?)"/g, '');
+  text = text.replace(/id="(.*?)"/g, '');
   text = text.replace(/\n/g, ' ');
-  text = text.replace(/  /g, ' ');
-  text = text.replace(/  /g, ' ');
-  text = text.replace(/  /g, ' ');
-  // text = text.replace(/\"/g,'\'');
+  text = text.replace(/( ){1,}/g, ' ');
+  text = text.replace(/(^ | $)/g, '');
+
+  text = text.replace(/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/g, linkReplace);
+  text = text.replace(/"/g,"\\'");
 
   return text;
+}
+
+//---------------------------------------------
+
+function linkReplace(str, spacer1, url, spacer2, text, offset, s) {
+  if ( url.search(/^http/) >= 0 ) {
+    return str;
+  }
+  else if ( url.search(/biblio/) >= 0 ) {
+    return '';
+  }
+  else if ( !text ) {
+    return '';
+  }
+
+  return '<i>' + text + '</i>';
+}
+
+//---------------------------------------------
+
+function beautyJSON( content ) {
+  if ( content.length === 0 ) {
+    return '';
+  }
+
+  content = JSON.stringify( content, null, '  ' );
+  content = content.replace(/(\\){2,}/g,'\\');
+  content = content.replace(/"/g,"'");
+  content = content.replace(/'name'/g,'name');
+  content = content.replace(/'desc'/g,'desc');
+  content = content.replace(/  /g,'    ');
+
+  // console.log( content );
+
+  // console.log('//---------------------------------------------');
+  return content;
 }
 
 //---------------------------------------------
