@@ -11,71 +11,7 @@ $col-5: #0B486B;
 }
 
 @import 'normalize';
+@import 'global/base';
 @import 'global/layout';
 @import 'blocks/demo';
 @import 'blocks/nav';
-
-BODY {
-    background: $col-1;
-    font: 16px/1.4 Georgia, serif;
-    color: darken($col-5, 8%);
-    }
-
-H1, H2, H3, H4 {
-    margin-top: 0;
-    font-weight: normal;
-    }
-
-Ul, LI {
-    margin: 0;
-    padding: 0;
-}
-
-MARK {
-  box-shadow: 0 0 0 2px $col-4;
-  background: $col-4;
-  color: $col-2;
-}
-
-CODE {
-  padding: .1rem .3rem;
-  background: $col-2;
-  border-radius: 3px;
-  color: $col-5;
-  font-size: .95em;
-}
-
-/* Content
----------------------------- */
-.content {
-    /*border: 1px solid;*/
-
-    A {
-        color: $col-5;
-    }
-
-    &__title {
-        }
-
-    &__item {
-        display: block;
-        width: 100%;
-        min-height: 100vh;
-        padding: 1rem 2em;
-        box-sizing: border-box;
-        border-bottom: 1px dotted $col-4;
-        }
-
-        &__title {
-            color: $col-4;
-            }
-    }
-
-/* Values */
-.content-values__term {
-    font-weight: bold;
-    color: $col-4;
-    }
-.content-values__desc {
-    margin-bottom: 1rem;
-    }
