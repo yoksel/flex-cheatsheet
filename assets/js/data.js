@@ -501,7 +501,8 @@ data[ data.length ] = {
       {
         'selector': '.child--featured',
         'rules': {
-          'flex-basis': '30%'
+          'flex-basis': '30%',
+          'background-color': accentColor
         }
       }
     ],
