@@ -22,11 +22,7 @@ function parseCode() {
   }
 
   propsList.forEach ( function( item ) {
-
-    // console.log(item, '\n\n');
     var propItem = new Item( item );
-    // console.log( propItem.getPropName() );
-
     var outPuts = [
       [
         offset + 'name',
@@ -75,17 +71,11 @@ function parseCode() {
   });
 
   outputText.value = output;
-
-// output += 'customValues: [],\n\n';
-  // output += 'cssRules: [],\n\n';
-
-  // outputText.value = output;
 }
 
 //---------------------------------------------
 
 function Item( elem ) {
-  // console.log( elem );
   this.elemSet = elem;
   this.name = this.getPropName();
   this.link = this.getPropLink();
@@ -98,7 +88,6 @@ function Item( elem ) {
 //---------------------------------------------
 
 Item.prototype.getPropName = function() {
-
   var elem = this.elemSet.elem.querySelector('.propdef tr:first-child td' );
 
   if ( elem ) {
@@ -160,12 +149,8 @@ Item.prototype.getValues = function () {
         values[ values.length-1].desc = desc;
       }
     });
-
-
-    // $.out('Values','h4');
-    // console.log( values );
-    // console.log( JSON.stringify( values ));
   }
+
   return values;
 };
 
@@ -176,8 +161,6 @@ function findNextElem( elem ) {
   var tags = {};
   tags.length = 0;
 
-  // console.log( elem.classList.contains('heading'));
-
   while ( !elem.classList.contains('heading') && counter < 10 ) {
     elem = elem.nextElementSibling;
 
@@ -187,11 +170,8 @@ function findNextElem( elem ) {
     }
 
     tags[ elem.tagName ].push( elem );
-    // console.log( counter, elem.tagName );
     counter++;
   }
-
-  // console.log(tags);
 
   return tags;
 }
@@ -199,7 +179,6 @@ function findNextElem( elem ) {
 //---------------------------------------------
 
 Item.prototype.getPropDesc = function() {
-
   var descItems = [];
 
   if ( this.nextElems.length > 0 && this.nextElems.P ) {
@@ -278,10 +257,5 @@ function beautyJSON( content ) {
 
 parseCode();
 
-inputText.oninput = function(){
-  parseCode();
-};
-
-inputText.onchange = function(){
-  parseCode();
-};
+inputText.oninput = parseCode;
+inputText.onchange = parseCode;
