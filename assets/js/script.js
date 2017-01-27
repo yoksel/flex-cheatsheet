@@ -142,6 +142,7 @@ Item.prototype.ContentItemElem = function ( ) {
             this.contentItemLink (),
             this.contentItemDemo (),
             this.contentItemDesc (),
+            this.contentItemTarget (),
             this.contentItemInitial (),
             this.contentItemValues ()
             ];
@@ -188,6 +189,21 @@ Item.prototype.contentItemLink = function () {
 
 //---------------------------------------------
 
+Item.prototype.contentItemTarget = function () {
+
+    if ( !this.dataItem.appliesTo ){
+        return;
+    }
+
+    var elem = $.create('p')
+                .addClass('content__initial-value')
+                .html('<b>Applies to</b>: ' + this.dataItem.appliesTo + '.');
+
+    return elem;
+};
+
+//---------------------------------------------
+
 Item.prototype.contentItemInitial = function () {
 
     if ( !this.dataItem.initValue ){
@@ -207,7 +223,7 @@ Item.prototype.contentItemDemo = function () {
     this.demoWrapper = demoWrapper.clone();
 
     this.demoElem = $.get('.demo', this.demoWrapper);
-    this.targetElemSelector = demoElemClasses[ this.dataItem.target ];
+    this.targetElemSelector = demoElemClasses[ this.dataItem.targetForDemo ];
 
     if ( this.dataItem.demoBefore ) {
       var view = $.get('.demo__view', this.demoWrapper);
@@ -223,8 +239,6 @@ Item.prototype.contentItemDemo = function () {
     this.contentItemDemoValues();
     this.contentItemSetCSS();
     this.contentItemSetCodeText();
-
-    // console.log(this);
 
     return this.demoWrapper;
 };
@@ -447,14 +461,14 @@ Item.prototype.StylesItem = function () {
 
     var prop = this.dataItem.name;
     var values = this.dataItem.values;
-    var target = this.dataItem.target;
+    var target = this.dataItem.targetForDemo;
     var intValue = this.dataItem.initValue;
     var parentClass = this.demoClass;
     var childClass = this.demoClass + ' .flex-item';
 
     var parentStyles = '';
 
-    if ( !this.dataItem.target || !values) {
+    if ( !this.dataItem.targetForDemo || !values) {
         return;
     }
 
