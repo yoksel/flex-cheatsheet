@@ -1,4 +1,5 @@
 .sass-cache
-npm-debug.log
 .DS_Store
+data-src.js
+npm-debug.log
 node_modules
