@@ -200,18 +200,12 @@ Item.prototype.getPropDesc = function() {
 //---------------------------------------------
 
 function clearText( text ) {
-
-  text = text.replace(/class="(.*?)"/g, '');
-  text = text.replace(/data-link-type="(.*?)"/g, '');
-  text = text.replace(/data-dfn-type="(.*?)"/g, '');
-  text = text.replace(/data-dfn-for="(.*?)"/g, '');
-  text = text.replace(/data-export="(.*?)"|data-noexport="(.*?)"/g, '');
-  text = text.replace(/id="(.*?)"/g, '');
+  text = text.replace(/class=".*?"|data-.*?=".*?"|id=".*?"/g, '');
   text = text.replace(/\n/g, ' ');
-  text = text.replace(/( ){1,}/g, ' ');
-  text = text.replace(/(^ | $)/g, '');
+  text = text.replace(/\s+/g, ' ');
+  text = text.trim();
 
-  text = text.replace(/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/g, linkReplace);
+  text = text.replace(/<a.*?href="(.*?)".*?>(.*?)<\/a>/g, linkReplace);
   text = text.replace(/"/g,"\\'");
 
   return text;
@@ -219,7 +213,7 @@ function clearText( text ) {
 
 //---------------------------------------------
 
-function linkReplace(str, spacer1, url, spacer2, text, offset, s) {
+function linkReplace(str, url, text) {
   if ( url.search(/^http/) >= 0 ) {
     return str;
   }
@@ -243,13 +237,9 @@ function beautyJSON( content ) {
   content = JSON.stringify( content, null, '  ' );
   content = content.replace(/(\\){2,}/g,'\\');
   content = content.replace(/"/g,"'");
-  content = content.replace(/'name'/g,'name');
-  content = content.replace(/'desc'/g,'desc');
+  content = content.replace(/'\w{2,5}'/g,'$&');
   content = content.replace(/  /g,'    ');
 
-  // console.log( content );
-
-  // console.log('//---------------------------------------------');
   return content;
 }
 
