@@ -9,7 +9,10 @@ var navHolder = $.create('ul').addClass('nav');
 var contentHolder = $.create('div').addClass('content');
 var stylesHolder = $.create('style').attr({'id':'flex'});
 
-var navMarker = $.create('div').addClass('nav__marker');
+var navMarker = $.create('li').addClass('nav__marker');
+var projectLinks = $.create('li')
+                    .addClass(['nav__item', 'nav__item--project-links'])
+                    .append( $.get('.project-links') );
 
 var sections = [];
 var navItems = {};
@@ -36,7 +39,8 @@ function createContent () {
 
     head.append( stylesHolder );
     main.append( contentHolder );
-    aside.append( navHolder );
+    aside.prepend( navHolder );
+    navHolder.append( projectLinks );
     navHolder.append( navMarker );
 
     setCurrentNavItem();
