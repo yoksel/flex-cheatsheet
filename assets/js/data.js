@@ -5,7 +5,7 @@ data[ data.length ] = {
     name: 'display',
 
     link: 'http://www.w3.org/TR/css-flexbox-1/#flex-containers',
-    target: 'flex container',
+    target: 'flex containers',
 
     desc: '<p>A <i>flex container</i> establishes a new <dfn >flex formatting context</dfn> for its contents. This is the same as establishing a block formatting context, except that flex layout is used instead of block layout. For example, floats do not intrude into the flex container, and the flex container’s margins do not collapse with the margins of its contents. <i>Flex containers</i> form a containing block for their contents <a href=\'https://www.w3.org/TR/CSS2/visudet.html#containing-block-details\'>exactly like block containers do</a>.  The <a href=\'https://www.w3.org/TR/css-overflow-3/#overflow\'>overflow</a> property applies to <i>flex containers</i>.</p><p>Flex containers are not block containers, and so some properties that were designed with the assumption of block layout don’t apply in the context of flex layout. In particular:</p><p>If an element’s specified <a href=\'https://www.w3.org/TR/CSS21/visuren.html#propdef-display\'>display</a> is <i>inline-flex</i>, then its <a href=\'https://www.w3.org/TR/CSS21/visuren.html#propdef-display\'>display</a> property computes to <i>flex</i> in certain circumstances: the table in <a href=\'https://www.w3.org/TR/CSS2/visuren.html#dis-pos-flo\'>CSS 2.1 Section 9.7</a> is amended to contain an additional row, with <i>inline-flex</i> in the \'Specified Value\' column and <i>flex</i> in the \'Computed Value\' column.</p>',
 
@@ -41,7 +41,7 @@ data[ data.length ] = {
     name: 'flex-direction',
 
     link: 'http://www.w3.org/TR/css-flexbox-1/#flex-direction-property',
-    target: 'flex container',
+    target: 'flex containers',
 
     desc: '<p>The <i>flex-direction</i> property specifies how <i>flex items</i> are placed in the flex container, by setting the direction of the flex container’s <i>main axis</i>. This determines the direction in which flex items are laid out.</p><p role=\'note\'>Note: The reverse values do not reverse box ordering: like <a href=\'https://www.w3.org/TR/css-writing-modes-3/#propdef-writing-mode\'>writing-mode</a> and <a href=\'https://www.w3.org/TR/css-writing-modes-3/#propdef-direction\'>direction</a> , they only change the direction of flow. Painting order, speech order, and sequential navigation orders are not affected.</p>',
 
@@ -82,7 +82,7 @@ data[ data.length ] = {
     name: 'flex-wrap',
 
     link: 'http://www.w3.org/TR/css-flexbox-1/#flex-wrap-property',
-    target: 'flex container',
+    target: 'flex containers',
 
     desc: '<p>The <i>flex-wrap</i> property controls whether the flex container is <i>single-line</i> or <i>multi-line</i>, and the direction of the <i>cross-axis</i>, which determines the direction new lines are stacked in. </p><p>For the values that are not <i>wrap-reverse</i>, the <i>cross-start</i> direction is equivalent to either the <a href=\'https://www.w3.org/TR/css-writing-modes-3/#inline-start\'>inline-start</a> or <a href=\'https://www.w3.org/TR/css-writing-modes-3/#block-start\'>block-start</a> direction of the current <a href=\'https://www.w3.org/TR/css-writing-modes-3/#writing-mode\'>writing mode</a> (whichever is in the <i>cross axis</i>) and the <i>cross-end</i> direction is the opposite direction of <i>cross-start</i>. When <i>flex-wrap</i> is <i>wrap-reverse</i>, the <i>cross-start</i> and <i>cross-end</i> directions are swapped.</p>',
 
@@ -124,7 +124,7 @@ data[ data.length ] = {
     name: 'flex-flow',
 
     link: 'http://www.w3.org/TR/css-flexbox-1/#flex-flow-property',
-    target: 'flex container',
+    target: 'flex containers',
 
     desc: '<p>The <i>flex-flow</i> property is a shorthand for setting the <i>flex-direction</i> and <i>flex-wrap</i> properties, which together define the flex container’s main and cross axes.</p>',
 
@@ -201,7 +201,7 @@ data[ data.length ] = {
     name: 'justify-content',
 
     link: 'http://www.w3.org/TR/css-flexbox-1/#justify-content-property',
-    target: 'flex container',
+    target: 'flex containers',
 
     desc: '<p>The <i>justify-content</i> property aligns <i>flex items</i> along the <i>main axis</i> of the current line of the flex container. This is done <em>after</em> any flexible lengths and any <i>auto margins</i> have been resolved. Typically it helps distribute extra free space leftover when either all the <i>flex items</i> on a line are inflexible, or are flexible but have reached their maximum size. It also exerts some control over the alignment of items when they overflow the line.</p>',
 
@@ -244,7 +244,7 @@ data[ data.length ] = {
     name: 'align-items',
 
     link: 'http://www.w3.org/TR/css-flexbox-1/#propdef-align-items',
-    target: 'flex container',
+    target: 'flex containers',
 
     desc: '<p><i>Flex items</i> can be aligned in the <i>cross axis</i> of the current line of the flex container, similar to <i>justify-content</i> but in the perpendicular direction. <i>align-items</i> sets the default alignment for all of the flex container’s <i>items</i>, including anonymous <i>flex items</i>. <i>align-self</i> allows this default alignment to be overridden for individual <i>flex items</i>. (For anonymous flex items, <i>align-self</i> always matches the value of <i>align-items</i> on their associated flex container.)</p><p>If either of the <i>flex item’s</i> cross-axis margins are <i>align-self</i> has no effect.</p><p>On absolutely positioned elements, a value of <i>auto</i> computes to itself. On all other elements, a value of <dfn >auto</dfn> for <i>align-self</i> computes to the value of <i>align-items</i> on the element’s parent, or <i>stretch</i> if the element has no parent. The alignments are defined as:</p>',
 
@@ -339,7 +339,7 @@ data[ data.length ] = {
     name: 'align-content',
 
     link: 'http://www.w3.org/TR/css-flexbox-1/#align-content-property',
-    target: 'flex container',
+    target: 'flex containers',
 
     desc: '<p>The <i>align-content</i> property aligns a flex container’s lines within the flex container when there is extra space in the <i>cross-axis</i>, similar to how <i>justify-content</i> aligns individual items within the <i>main-axis</i>. Note, this property has no effect on a <i>single-line</i> <i>flex container</i>. Values have the following meanings:</p><p role=\'note\'>Note: Only <i>multi-line</i> <i>flex containers</i> ever have free space in the <i>cross-axis</i> for lines to be aligned in, because in a <i>single-line</i> flex container the sole line automatically stretches to fill the space.</p>',
 

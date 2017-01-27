@@ -21,7 +21,7 @@ var codeWrapper = $.get('.code-wrapper');
 var demoValueClassCurrent = 'demo-values__control--current';
 var codeOffset = '  ';
 var demoElemClasses = {
-  'flex container': '.parent' ,
+  'flex containers': '.parent' ,
   'flex items': '.child--featured'
 };
 var navItemCurrentClass = 'nav__item--current';
