@@ -7,7 +7,7 @@ $col-5: #0B486B;
 @mixin aside-width {
     width: 23%;
     min-width: 230px;
-    max-width: 400px;
+    max-width: 300px;
 }
 
 @import 'normalize';
@@ -15,3 +15,7 @@ $col-5: #0B486B;
 @import 'global/layout';
 @import 'blocks/demo';
 @import 'blocks/nav';
+@import 'blocks/project-links';
+@import 'blocks/theme-control';
+
+@import 'themes/seagreen';

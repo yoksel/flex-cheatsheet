@@ -1,6 +1,7 @@
 var $ = tinyLib;
 
 var doc = document;
+var body = $.get('body');
 var aside = $.get('.l-aside');
 var main = $.get('.l-main');
 var head = $.get('head');
@@ -28,6 +29,7 @@ var demoElemClasses = {
   'flex items': '.child--featured'
 };
 var navItemCurrentClass = 'nav__item--current';
+var localStorThemeKey = 'fbchTheme';
 
 //---------------------------------------------
 
@@ -502,6 +504,31 @@ Item.prototype.StylesItem = function () {
 };
 
 //---------------------------------------------
+// THEMES SWITCHER
+//---------------------------------------------
+
+function addThemeControls() {
+  var control = $.create('button')
+                 .addClass('theme-control')
+                 .html('Change theme');
+  body.append(control);
+
+  control.elem.addEventListener('click', function () {
+    var nextTheme = body.data('theme') === 'seagreen' ? 'default' : 'seagreen';
+    body.data({'theme': nextTheme});
+    localStorage[localStorThemeKey] = nextTheme;
+  });
+}
+
+//---------------------------------------------
+
+function applyTheme() {
+  var theme = localStorage[localStorThemeKey];
+  theme = theme ? theme : 'default';
+  body.data({'theme': theme});
+}
+
+//---------------------------------------------
 // COMMON
 //---------------------------------------------
 
@@ -571,3 +598,5 @@ window.addEventListener('scroll', myEfficientFn);
 //---------------------------------------------
 
 createContent();
+applyTheme();
+addThemeControls();
