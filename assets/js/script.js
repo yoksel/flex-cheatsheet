@@ -524,7 +524,7 @@ function addThemeControls() {
 
 function applyTheme() {
   var theme = localStorage[localStorThemeKey];
-  theme = theme ? theme : 'default';
+  theme = theme ? theme : 'seagreen';
   body.data({'theme': theme});
 }
 
