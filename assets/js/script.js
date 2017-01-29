@@ -242,6 +242,10 @@ Item.prototype.contentItemDemo = function () {
 
     this.demoElem.addClass( this.demoClassName );
 
+    if ( this.targetElemSelector.search('featured') > -1 ) {
+      this.demoElem.addClass( 'demo--has-featured' );
+    }
+
     this.contentItemDemoValues();
     this.contentItemSetCSS();
     this.contentItemSetCodeText();

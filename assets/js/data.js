@@ -209,8 +209,7 @@ data[data.length] = {
     {
       'selector': '.child--featured',
       'rules': {
-        'order': '-1',
-        'background-color': accentColor,
+        'order': '-1'
       }
     }
   ],
@@ -359,8 +358,7 @@ data[data.length] = {
     {
       'selector': '.child--featured',
       'rules': {
-        'align-self': 'flex-start',
-        'background-color': accentColor,
+        'align-self': 'flex-start'
       }
     }
   ],
@@ -462,8 +460,7 @@ data[data.length] = {
     {
       'selector': '.child--featured',
       'rules': {
-        'flex-grow': '1',
-        'background-color': accentColor
+        'flex-grow': '1'
       }
     }
   ],
@@ -507,8 +504,7 @@ data[data.length] = {
     {
       'selector': '.child--featured',
       'rules': {
-        'flex-shrink': '1',
-        'background-color': accentColor
+        'flex-shrink': '1'
       }
     }
   ],
@@ -551,8 +547,7 @@ data[data.length] = {
     {
       'selector': '.child--featured',
       'rules': {
-        'flex-basis': '30%',
-        'background-color': accentColor
+        'flex-basis': '30%'
       }
     }
   ],

@@ -5,7 +5,7 @@ BODY {
 }
 
 A {
-  color: hsl(225, 90%, 40%)
+  color: hsl(225, 90%, 40%);
 }
 
 UL {
@@ -24,14 +24,6 @@ LI,
 Ul {
   margin: 0;
   padding: 0;
-}
-
-CODE {
-  padding: 0.1rem 0.3rem;
-  background: $col-2;
-  border-radius: 3px;
-  color: $col-5;
-  font-size: 0.95em;
 }
 
 MARK {
