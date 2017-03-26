@@ -159,7 +159,7 @@ data[data.length] = {
       'selector': '.parent',
       'rules': {
         'display': 'flex',
-        'flex': 'row nowrap',
+        'flex-flow': 'row nowrap',
         'height': '100%',
       }
     },
