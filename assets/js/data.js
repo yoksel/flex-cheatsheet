@@ -252,6 +252,10 @@ data[data.length] = {
     {
       name: 'space-around',
       desc: '<i>Flex items</i> are evenly distributed in the line, with half-size spaces on either end. If the leftover free-space is negative or there is only a single <i>flex item</i> on the line, this value is identical to <i>center</i>. Otherwise, the <i>flex items</i> on the line are distributed such that the spacing between any two adjacent <i>flex items</i> on the line is the same, and the spacing between the first/last <i>flex items</i> and the <i>flex container</i> edges is half the size of the spacing between <i>flex items</i>.'
+    },
+    {
+      name: 'space-evenly',
+      desc: '<i>Flex items</i> are evenly distributed in the line. If the leftover free-space is negative or there is only a single <i>flex item</i> on the line, this value is identical to <i>center</i>. Otherwise, the <i>flex items</i> on the line are distributed such that the spacing between each one is the same.'
     }
   ],
 
@@ -394,6 +398,10 @@ data[data.length] = {
     {
       name: 'space-around',
       desc: 'Lines are evenly distributed in the flex container, with half-size spaces on either end. If the leftover free-space is negative this value is identical to <i>center</i>. Otherwise, the lines in the flex container are distributed such that the spacing between any two adjacent lines is the same, and the spacing between the first/last lines and the <i>flex container</i> edges is half the size of the spacing between <i>flex lines</i>.'
+    },
+    {
+      name: 'space-evenly',
+      desc: 'Lines are evenly distributed in the flex container. If the leftover free-space is negative this value is identical to <i>center</i>. Otherwise, the lines in the flex container are distributed such that the spacing between every <i>flex line</i> is the same.'
     },
     {
       name: 'stretch',
