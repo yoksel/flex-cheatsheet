@@ -19,13 +19,10 @@
   "homepage": "https://github.com/yoksel/flex-cheatsheet",
   "devDependencies": {
     "browser-sync": "^2.10.1",
-    "gulp": "^3.9.0",
+    "gulp": "^4.0.0",
     "gulp-minify-css": "^1.2.2",
     "gulp-plumber": "^1.1.0",
-    "gulp-ruby-sass": "^2.0.6"
-  },
-  "dependencies": {
     "gulp-ruby-sass": "^2.0.6",
-    "normalize.css": "^3.0.3"
+    "lodash": "^4.17.10"
   }
 }

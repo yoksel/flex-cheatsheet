@@ -5,12 +5,12 @@ var browserSync = require('browser-sync');
 var plumber = require('gulp-plumber');
 var reload = browserSync.reload;
 
-
 gulp.task('sass', function() {
   return sass('src/scss/**/styles.scss')
     .pipe(plumber())
     .pipe(minifyCss())
     .pipe(gulp.dest('assets/css'))
+    .pipe(reload({ stream:true }));
 });
 
 // watch files for changes and reload
@@ -21,6 +21,13 @@ gulp.task('serve', function() {
     }
   });
 
-  gulp.watch(['src/scss/**/*'], ['sass']);
-  gulp.watch(['*.html', 'parser/**/*', 'assets/css/**/*.css', 'assets/js/**/*.js'], {cwd: '.'}, reload);
+  gulp.watch(
+    ['src/scss/**/*'],
+    gulp.series(['sass'])
+  );
+  gulp.watch(
+    ['*.html', 'parser/**/*', 'assets/css/**/*.css', 'assets/js/**/*.js'],
+    {cwd: '.'},
+    reload
+  );
 });
