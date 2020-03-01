@@ -22,7 +22,7 @@
     "gulp": "^4.0.0",
     "gulp-clean-css": "^4.2.0",
     "gulp-plumber": "^1.1.0",
-    "gulp-ruby-sass": "^2.0.6",
-    "lodash": "^4.17.13"
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.13.1"
   }
 }

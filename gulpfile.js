@@ -1,23 +1,24 @@
 var gulp = require('gulp');
-var sass = require('gulp-ruby-sass');
 var cleanCSS = require('gulp-clean-css');
-var browserSync = require('browser-sync');
+var browserSync = require('browser-sync').create();
 var plumber = require('gulp-plumber');
 var reload = browserSync.reload;
+var sass = require('gulp-sass');
+
+sass.compiler = require('node-sass');
 
 gulp.task('sass', function() {
-  return sass('src/scss/**/styles.scss')
-    .pipe(plumber())
+  return gulp.src('src/scss/**/styles.scss')
+    .pipe(sass().on('error', sass.logError))
     .pipe(cleanCSS())
     .pipe(gulp.dest('assets/css'))
-    .pipe(reload({ stream:true }));
+    .pipe(browserSync.stream());
 });
 
-// watch files for changes and reload
 gulp.task('serve', function() {
-  browserSync({
+  browserSync.init({
     server: {
-      baseDir: '.'
+        baseDir: '.'
     }
   });
 
@@ -25,9 +26,8 @@ gulp.task('serve', function() {
     ['src/scss/**/*'],
     gulp.series(['sass'])
   );
+
   gulp.watch(
-    ['*.html', 'parser/**/*', 'assets/css/**/*.css', 'assets/js/**/*.js'],
-    {cwd: '.'},
-    reload
-  );
+    ['*.html', 'parser/**/*', 'assets/css/**/*.css', 'assets/js/**/*.js']
+  ).on('change', reload);
 });
