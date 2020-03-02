@@ -59,14 +59,14 @@ function parseCode() {
         content = '\'' + content + '\'';
       }
       else if ( content && typeof content === 'object') {
-        content = beautyJSON( content );
+        content = beautyJSON( content ) || `[]`;
       }
-      item[1] = content;
+      item[1] = content || `''`;
 
       outPutsStrings.push( item.join(': '));
     });
 
-    output += 'data[ data.length] = {\n' + outPutsStrings.join(',\n\n') + '\n};\n\n';
+    output += 'data[data.length] = {\n' + outPutsStrings.join(',\n\n') + '\n};\n\n';
 
   });
 
