@@ -62,6 +62,10 @@
         ElemSet.prototype.addClass = function ( classNames ) {
           var elem = this.elem;
 
+          if(!classNames) {
+            return this;
+          }
+
           if ( typeof classNames === 'string') {
             classNames = [classNames];
           }
