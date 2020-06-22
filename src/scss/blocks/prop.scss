@@ -1,0 +1,92 @@
+.prop {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  box-sizing: border-box;
+  border-bottom: 1px dotted var(--prop-border);
+
+  &--child,
+  &--has-children {
+    min-height: 0;
+  }
+
+  &__title {
+    margin-top: .75rem;
+    font-size: 1.7em;
+    font-weight: 470;
+    color: var(--prop-title-color);
+  }
+
+  &--child &__title {
+    margin-top: 1rem;
+    font-size: 1.4em;
+    color: var(--prop-values-title-color);
+  }
+
+  &__link {
+    display: inline-block;
+    margin: 0 0 2rem;
+  }
+
+  UL {
+    list-style-type: disc;
+    padding-left: 2rem;
+  }
+
+  CODE {
+    display: inline-block;
+    padding: 0 2px;
+    border-radius: 3px;
+    background: var(--code-bg);
+  }
+
+  PRE {
+    margin: 1em 0;
+    white-space: normal;
+
+    CODE {
+      display: block;
+      width: fit-content;
+      white-space: pre-line;
+      padding: 4px;
+    }
+  }
+}
+
+/* Values */
+
+.prop-values__title {
+  margin-bottom: 0;
+  font-size: 1.4em;
+  color: var(--prop-values-title-color);
+}
+
+.prop-values__list {
+  margin-left: 1rem;
+
+  .prop-values--title-hidden & {
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  @media ( max-width: 768px ) {
+    margin-left: 0;
+  }
+}
+
+.prop-values__term {
+  font-weight: bold;
+  color: var(--term-color);
+}
+
+.prop-values__desc {
+  margin-top: .5rem;
+  margin-bottom: 1rem;
+  margin-left: 2rem;
+
+  @media ( max-width: 768px ) {
+    margin-left: 1rem;
+  }
+}

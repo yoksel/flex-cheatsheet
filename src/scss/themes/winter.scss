@@ -1,0 +1,53 @@
+[data-theme="winter"] {
+  --col-1-darkest: #D9BB83;
+  --col-1-darker: #E1CA9E;
+  --col-1-dark: #EAD9BA;
+  --col-1: #F2E8D5;
+  --col-1-light: #FAF7F0;
+
+  --col-2-darkest: #E0B763;
+  --col-2-darker: #E6C581;
+  --col-2-dark: #ECD29F;
+  --col-2: #F2E0BD;
+  --col-2-light: #F8EEDB;
+  --col-2-lighter: #FEFCF9;
+
+  --col-3-darkest: #E6693C;
+  --col-3-darker: #EA825C;
+  --col-3-dark: #EE9A7B;
+  --col-3: #F2B29B;
+  --col-3-light: #F6CABA;
+  --col-3-lighter: #FAE3DA;
+  --col-3-lightest: #FEFBFA;
+
+  --col-4-darkest: #122B3A;
+  --col-4-darker: #1A3F55;
+  --col-4-dark: #235371;
+  --col-4: #2B678C;
+  --col-4-light: #337BA7;
+  --col-4-lighter: #3C8FC3;
+  --col-4-lightest: #579FCB;
+
+  --col-5-darkest: #030609;
+  --col-5-darker: #0C1923;
+  --col-5-dark: #152C3E;
+  --col-5: #1E3E59;
+  --col-5-light: #275174;
+  --col-5-lighter: #30648E;
+  --col-5-lightest: #3977A9;
+
+  --col-6-dark: #050B10;
+  --col-6: #0C1923;
+  --col-6-light: #132736;
+  --col-6-lighter: #193449;
+  --col-6-lightest: #20425C;
+
+  --nav-link: var(--col-2-darker);
+  --aside-bg: var(--col-4-dark);
+
+  --control-bg: var(--col-4-light);
+  --control-current-bg: var(--col-5-dark);
+
+  --demo-code-bg: var(--col-3-light);
+  --demo-code-bg-featured: var(--col-2-dark);
+}

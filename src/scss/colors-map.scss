@@ -1,0 +1,56 @@
+BODY {
+  --body-bg: var(--col-1);
+  --body-color: var(--col-5-darker);
+  --link-color: var(--col-5);
+  --link-color-hover: var(--col-5-lighter);
+
+  --aside-bg: var(--col-5);
+  --aside-header-color: var(--col-6-dark);
+
+  --nav-marker-bg: var(--body-bg);
+  --nav-marker-border: var(--col-4);
+
+  --nav-link: var(--col-3-lighter);
+  --nav-link-hover: var(--col-2);
+  --nav-link-current: var(--col-1);
+
+  --nav-scrollbar-bg: var(--nav-marker-border);
+  --nav-thumb-bg: var(--nav-link);
+
+  --mark-bg: var(--col-4-dark);
+  --mark-color: var(--col-2-lighter);
+
+  --code-bg: var(--col-2);
+  --code-color: var(--col-5);
+
+  --term-color: var(--col-4-darker);
+
+  --control-bg: var(--col-4);
+  --control-color: var(--col-2);
+
+  --control-current-bg: var(--col-5);
+  --control-current-color: var(--col-1);
+
+  --parent-border: var(--col-4);
+
+  --group-title-color: var(--col-5);
+
+  --prop-border: var(--col-4);
+  --prop-title-color: var(--col-4);
+  --prop-values-title-color: var(--col-5-lightest);
+
+  --demo-bg: var(--col-3);
+  --demo-featured-bg: var(--col-2-darker);
+  --demo-border: var(--col-1);
+  --demo-color: var(--col-5);
+  --demo-code-bg: var(--col-1-darker);
+  --demo-code-bg-featured: var(--col-2-lightest);
+
+  --note-bg: var(--col-2);
+  --note-border: var(--col-3);
+
+  --project-icon: var(--col-5-darkest);
+  --project-icon-hover: var(--nav-link);
+
+  --theme-control-color: var(--col-4);
+}

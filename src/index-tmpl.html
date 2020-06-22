@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title><%= htmlWebpackPlugin.options.TITLE %></title>
+    <meta name="description"
+      content="<%= htmlWebpackPlugin.options.DESC %>">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <meta property="og:title" content="<%= htmlWebpackPlugin.options.TITLE %>">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= htmlWebpackPlugin.options.URL %>">
+    <meta property="og:image" content="<%= htmlWebpackPlugin.options.IMAGE %>">
+    <meta property="og:description"
+      content="<%= htmlWebpackPlugin.options.DESC %>">
+  </head>
+
+  <body class="page" data-theme="sunny">
+    <h1 class="visually-hidden"><%= htmlWebpackPlugin.options.TITLE %></h1>
+
+    <div class="page-container">
+      <main class="page-main"></main>
+
+      <aside class="page-aside page-aside--collapsed">
+        <button type="button" class="page-aside__toggler">
+          <span class="visually-hidden">Toggle nav</span>
+        </button>
+
+        <div class="page-aside__content">
+          <div class="project-links">
+            <a href="<%= htmlWebpackPlugin.options.GITHUB %>" class="project-link project-link--git" title="Project on github">Project on github</a>
+            <a href="https://twitter.com/yoksel_en" class="project-link project-link--twitter" title="Twitter @yoksel_en">@yoksel_en</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <button class="theme-control" type="button">Change theme</button>
+
+    <template id="demo-tmpl">
+      <div class="demo">
+        <div class="demo__content">
+          <div class="demo__view">
+            <div class="parent">
+              <div class="child"></div>
+              <div class="child"></div>
+              <div class="child child--featured"></div>
+              <div class="child"></div>
+            </div>
+          </div>
+
+          <div class="demo__code" spellcheck="false"></div>
+        </div>
+      </div>
+    </template>
+
+    <%= htmlWebpackPlugin.options.COUNTER %>
+  </body>
+</html>

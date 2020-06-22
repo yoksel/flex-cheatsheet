@@ -1,0 +1,44 @@
+.group {
+  padding-top: 1.75rem;
+
+  &--hidden-title {
+    padding-top: 0;
+  }
+
+  &__title {
+    margin: 0 0 1em;
+    font-size: 2em;
+    font-weight: 500;
+    color: var(--group-title-color);
+
+    @media ( max-width: 768px ) {
+      margin-bottom: .5em;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    margin: 0 0 2em;
+
+    @media ( max-width: 768px ) {
+      margin-bottom: 1.5em;
+    }
+  }
+
+  TABLE {
+    margin: auto;
+  }
+
+  TH,
+  TD {
+    padding: .5em;
+
+    @media ( max-width: 375px ) {
+      padding: .5em .15em;
+    }
+  }
+
+  TR:not(:last-child) {
+    border-bottom: 1px solid var(--col-3);
+  }
+}

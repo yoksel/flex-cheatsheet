@@ -1,0 +1,58 @@
+[data-theme="gray"] {
+  --col-1-darkest: #D1D1D1;
+  --col-1-darker: #E0E0E0;
+  --col-1-dark: #F0F0F0;
+  --col-1: #FFF;
+
+  --col-2-darkest: #AFAFAF;
+  --col-2-darker: #BEBEBE;
+  --col-2-dark: #CECECE;
+  --col-2: #DDD;
+  --col-2-light: #ECECEC;
+  --col-2-lighter: #FCFCFC;
+
+  --col-3-darkest: #5A5A5A;
+  --col-3-darker: #696969;
+  --col-3-dark: #797979;
+  --col-3: #888;
+  --col-3-light: #979797;
+  --col-3-lighter: #A7A7A7;
+  --col-3-lightest: #B6B6B6;
+
+  --col-4-darkest: #272727;
+  --col-4-darker: #363636;
+  --col-4-dark: #464646;
+  --col-4: #555;
+  --col-4-light: #646464;
+  --col-4-lighter: #747474;
+  --col-4-lightest: #838383;
+
+  --col-5-darkest: #050505;
+  --col-5-darker: #141414;
+  --col-5-dark: #242424;
+  --col-5: #333;
+  --col-5-light: #424242;
+  --col-5-lighter: #525252;
+  --col-5-lightest: #616161;
+
+  --col-6-dark: #020202;
+  --col-6: #111;
+  --col-6-light: #202020;
+  --col-6-lighter: #303030;
+  --col-6-lightest: #3F3F3F;
+
+  --aside-bg: var(--col-3-lighter);
+  --nav-marker-border: var(--col-2-dark);
+  --nav-link: var(--col-4-darker);
+  --nav-link-hover: var(--col-6);
+  --nav-link-current: var(--col-6-dark);
+  --demo-bg: var(--col-2-dark);
+
+  --control-bg: var(--col-4-light);
+  --control-color: var(--col-2-light);
+  --control-current-bg: var(--col-5-dark);
+
+  --demo-featured-bg: var(--col-3-light);
+  --demo-code-bg: var(--col-1-dark);
+  --demo-code-bg-featured: var(--col-2-dark);
+}

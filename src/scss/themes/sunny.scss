@@ -1,0 +1,52 @@
+[data-theme="sunny"] {
+  --col-1-darkest: #FFE867;
+  --col-1-darker: #FFEC80;
+  --col-1-dark: #FFF09A;
+  --col-1: #FFF4B3;
+  --col-1-light: #FFF7CD;
+  --col-1-lighter: #FFFBE6;
+
+  --col-2-darkest: #ECA201;
+  --col-2-darker: #FEB009;
+  --col-2-dark: #FEB923;
+  --col-2: #FEC13C;
+  --col-2-light: #FEC956;
+  --col-2-lighter: #FED16F;
+  --col-2-lightest: #FED988;
+
+  --col-3-darkest: #9E960E;
+  --col-3-darker: #B5AD10;
+  --col-3-dark: #CCC312;
+  --col-3: #E4DA14;
+  --col-3-light: #ECE225;
+  --col-3-lighter: #EEE53D;
+  --col-3-lightest: #F0E854;
+
+  --col-4-darkest: #2B7268;
+  --col-4-darker: #328479;
+  --col-4-dark: #39978A;
+  --col-4: #40A99B;
+  --col-4-light: #49BAAB;
+  --col-4-lighter: #5BC1B3;
+  --col-4-lightest: #6EC8BC;
+
+  --col-5-darkest: #312A1E;
+  --col-5-darker: #413728;
+  --col-5-dark: #514431;
+  --col-5: #61523B;
+  --col-5-light: #715F45;
+  --col-5-lighter: #816D4E;
+  --col-5-lightest: #917A58;
+
+  --col-6-darkest: #020101;
+  --col-6-darker: #110F0B;
+  --col-6-dark: #211C14;
+  --col-6: #312A1E;
+  --col-6-light: #413828;
+  --col-6-lighter: #514531;
+  --col-6-lightest: #61533B;
+
+  --mark-color: var(--col-1);
+  --control-color: var(--col-1-dark);
+  --code-bg: var(--col-2-light);
+}

@@ -1,67 +1,75 @@
 .nav {
-  position: fixed;
+  position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  @include aside-width;
-  height: 100%;
-  overflow: hidden;
-  padding: 1.5rem 0;
+  padding: 1.5rem 1rem;
   box-sizing: border-box;
-  list-style-type: none;
-  background: #DDD;
+  overflow: hidden;
 
   @media ( min-width: 1200px ) {
-    padding-left: 1rem;
-  }
-
-  &:before {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    height: 100%;
-    width: 2px;
-    background: #000;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   &__subheader {
     margin-top: 1rem;
-    margin-bottom: .5rem;
-    padding: 0 1rem;
-    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-size: 1.45rem;
     line-height: 1;
+    color: var(--aside-header-color);
 
     @media ( min-width: 1130px ) {
-      font-size: 1.45rem;
+      font-size: 1.5rem;
+    }
+  }
+
+  &__subheader-link {
+    text-decoration: none;
+    color: inherit;
+    transition: all .15s;
+
+    &:hover {
+      color: inherit;
+      opacity: .65;
+    }
+  }
+
+  &__list {
+    margin: 0 1.25rem;
+  }
+
+  &__list--inner {
+    margin-top: .6rem;
+
+    @media ( min-width: 900px ) {
+      margin-top: .8rem;
     }
   }
 
   &__item {
-    margin-bottom: .4rem;
+    margin-bottom: .6rem;
 
     @media ( min-width: 900px ) {
-      margin-bottom: .6rem;
+      margin-bottom: .8rem;
     }
   }
 
   &__link {
     position: relative;
     display: block;
-    margin-left: 2rem;
-    padding: 0 1rem;
+    color: var(--nav-link);
 
     &:hover {
       text-decoration: none;
+      color: var(--nav-link-hover);
     }
   }
 
-  &__item--current &__link {
+  &__item--current > &__link {
     text-decoration: none;
     font-weight: bold;
-    color: #000;
+    color: var(--nav-link-current);
   }
 }
 
@@ -69,12 +77,13 @@
 --------------------------------------------- */
 .nav__marker {
   position: absolute;
+  z-index: 2;
   margin-top: -.45rem;
   right: -1rem;
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  box-shadow: 0 0 0 2px #000;
-  background: #FFF;
+  background: var(--nav-marker-bg);
+  box-shadow: 0 0 0 10px var(--nav-marker-border);
   transition: top .5s;
 }

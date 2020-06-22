@@ -1,11 +1,42 @@
 BODY {
-  background: #FFF;
+  display: flex;
+  min-height: 100vh;
+  background: var(--body-bg);
   font: 16px/1.4 Georgia, serif;
-  color: #111;
+  color: var(--body-color);
 }
 
 A {
-  color: hsl(225, 90%, 40%);
+  transition: all .25s;
+  color: var(--link-color);
+
+  &:hover {
+    text-decoration: none;
+    color: var(--link-color-hover);
+  }
+
+  &[href*="http"]::after {
+    // disable icon on external links
+    // content: "";
+    display: inline-block;
+    width: .9em;
+    height: .9em;
+    margin-left: .1em;
+    vertical-align: middle;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 6.41L8.7 16.71a1 1 0 1 1-1.4-1.42L17.58 5H14a1 1 0 0 1 0-2h6a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V6.41zM17 14a1 1 0 0 1 2 0v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2h5a1 1 0 0 1 0 2H5v12h12v-5z'/%3E%3C/svg%3E");
+    background: currentColor;
+    opacity: .5;
+    transition: inherit;
+  }
+
+  &[href*="http"]:hover::after {
+    opacity: 1;
+  }
+}
+
+.marked-link {
+  box-shadow: 0 0 0 2px;
+  border-radius: 3px;
 }
 
 UL {
@@ -17,21 +48,43 @@ H2,
 H3,
 H4 {
   margin-top: 0;
-  font-weight: normal;
+  font-family: RobotoSlab, Georgia, serif;
+  font-weight: 600;
+
+  @supports (font-variation-settings: normal) {
+    font-family: RobotoSlabVariable, Georgia, serif;
+  }
 }
 
-LI,
-Ul {
+UL,
+LI {
   margin: 0;
   padding: 0;
 }
 
-MARK {
-  background: #333;
-  box-shadow: 0 0 0 2px #333;
-  color: #FFF;
+DD + DT {
+  margin-top: 1rem;
 }
 
+MARK {
+  box-shadow:
+    0 0 0 2px var(--mark-bg),
+    0 0 0 2px var(--mark-bg) inset;
+  background: var(--mark-bg);
+  color: var(--mark-color);
+}
+
+PRE {
+  white-space: pre-line;
+}
+
+DFN {
+  font-weight: bold;
+}
+
+P:first-child {
+  margin-top: 0;
+}
 
 .hidden-content {
   display: none;
@@ -48,26 +101,28 @@ MARK {
   overflow: hidden;
 }
 
-/* CONTENT
---------------------------------------------- */
+.note {
+  padding: 1em;
+  background: var(--note-bg);
+  border-left: 10px solid var(--note-border);
+  border-radius: 3px;
+}
 
-.content {
+.table-data--centered {
+  text-align: center;
+}
 
-  &__item {
-    display: block;
-    width: 100%;
-    min-height: 100vh;
-    padding: 1rem 2em;
-    box-sizing: border-box;
-    border-bottom: 1px dotted;
+.self-link {
+  opacity: 0;
+  color: inherit;
+
+  &::before {
+    content: "#";
   }
 
-}
-/* Values */
-.content-values__term {
-  font-weight: bold;
-}
-
-.content-values__desc {
-  margin-bottom: 1rem;
+  DT:hover &,
+  H2:hover &,
+  H3:hover & {
+    opacity: 1;
+  }
 }

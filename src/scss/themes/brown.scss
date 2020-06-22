@@ -1,0 +1,56 @@
+[data-theme="brown"] {
+  --col-1-darkest: hsl(50, 80%, 69%);
+  --col-1-darker: hsl(50, 80%, 76%);
+  --col-1-dark: hsl(50, 80%, 83%);
+  --col-1: hsl(50, 80%, 90%);
+  --col-1-light: hsl(50, 80%, 97%);
+
+  --col-2-darkest: hsl(45, 75%, 59%);
+  --col-2-darker: hsl(45, 75%, 66%);
+  --col-2-dark: hsl(45, 75%, 73%);
+  --col-2: hsl(45, 75%, 80%);
+  --col-2-light: hsl(45, 75%, 87%);
+  --col-2-lighter: hsl(45, 75%, 94%);
+
+  --col-3-darkest: hsl(41, 60%, 49%);
+  --col-3-darker: hsl(41, 60%, 56%);
+  --col-3-dark: hsl(41, 60%, 63%);
+  --col-3: hsl(41, 60%, 70%);
+  --col-3-light: hsl(41, 60%, 77%);
+  --col-3-lighter: hsl(41, 60%, 84%);
+  --col-3-lightest: hsl(41, 60%, 91%);
+
+  --col-4-darkest: hsl(34, 33%, 24%);
+  --col-4-darker: hsl(34, 33%, 31%);
+  --col-4-dark: hsl(34, 33%, 38%);
+  --col-4: hsl(34, 33%, 45%);
+  --col-4-light: hsl(34, 33%, 52%);
+  --col-4-lighter: hsl(34, 33%, 59%);
+  --col-4-lightest: hsl(34, 33%, 66%);
+
+  --col-5-darkest: hsl(32, 33%, 14%);
+  --col-5-darker: hsl(32, 33%, 21%);
+  --col-5-dark: hsl(32, 33%, 28%);
+  --col-5: hsl(32, 33%, 33%);
+  --col-5-light: hsl(32, 33%, 42%);
+  --col-5-lighter: hsl(32, 33%, 49%);
+  --col-5-lightest: hsl(32, 33%, 56%);
+
+  --col-6-darker: hsl(32, 35%, 1%);
+  --col-6-dark: hsl(32, 35%, 8%);
+  --col-6: hsl(32, 35%, 15%);
+  --col-6-light: hsl(32, 35%, 22%);
+  --col-6-lighter: hsl(32, 35%, 29%);
+  --col-6-lightest: hsl(32, 35%, 36%);
+
+  --project-icon: var(--col-6-darker);
+  --aside-header-color: var(--col-6-darker);
+  --control-bg: var(--col-4-dark);
+  --control-color: var(--col-2-light);
+  --control-current-bg: var(--col-5-darker);
+
+  --demo-color: var(--col-5-darker);
+  --demo-featured-bg: var(--col-4-light);
+  --demo-code-bg: var(--col-2);
+  --demo-code-bg-featured: var(--col-3-dark);
+}
