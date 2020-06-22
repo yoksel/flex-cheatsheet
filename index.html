@@ -1,45 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Flexbox Cheatsheet</title>
-    <link rel="stylesheet" href="./assets/css/styles.css">
-</head>
-<body>
-<h1 class="visually-hidden">Flexbox Cheatsheet</h1>
-<div class="l-wrapper">
-    <main class="l-main">
+  <head>
+    <title>Flex Cheatsheet</title>
+    <meta name="description"
+      content="Demos for W3C CSS Flexbox Specification http://www.w3.org/TR/css-flexbox-1/">
 
-    </main>
-    <aside class="l-aside">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
-    </aside>
-</div>
+    <meta property="og:title" content="Flex Cheatsheet">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yoksel.github.io/flex-cheatsheet/">
+    <meta property="og:image" content="//yoksel.github.io/flex-cheatsheet/screenshot.png">
+    <meta property="og:description"
+      content="Demos for W3C CSS Flexbox Specification http://www.w3.org/TR/css-flexbox-1/">
+  <link href="/flex-cheatsheet/styles.css" rel="stylesheet"></head>
 
-<div class="hidden-content">
-    <div class="demo-wrapper">
-        <div class="demo">
-            <div class="demo__view">
-              <div class="parent">
-                  <div class="child"></div>
-                  <div class="child"></div>
-                  <div class="child child--featured"></div>
-                  <div class="child"></div>
-              </div>
-            </div>
+  <body class="page" data-theme="sunny">
+    <h1 class="visually-hidden">Flex Cheatsheet</h1>
 
-            <div class="demo__code" spellcheck="false"></div>
+    <div class="page-container">
+      <main class="page-main"></main>
+
+      <aside class="page-aside page-aside--collapsed">
+        <button type="button" class="page-aside__toggler">
+          <span class="visually-hidden">Toggle nav</span>
+        </button>
+
+        <div class="page-aside__content">
+          <div class="project-links">
+            <a href="https://github.com/yoksel/flex-cheatsheet/" class="project-link project-link--git" title="Project on github">Project on github</a>
+            <a href="https://twitter.com/yoksel_en" class="project-link project-link--twitter" title="Twitter @yoksel_en">@yoksel_en</a>
+          </div>
         </div>
+      </aside>
     </div>
 
-    <div class="project-links">
-      <a href="https://github.com/yoksel/flex-cheatsheet" class="project-link project-link--git" title="Project on github">Project on github</a>
-      <a href="https://twitter.com/yoksel_en" class="project-link project-link--twitter" title="Twitter @yoksel_en">@yoksel_en</a>
-    </div>
-</div>
+    <button class="theme-control" type="button">Change theme</button>
 
-<script src="./assets/js/data.js"></script>
-<script src="./assets/js/tinylib.js"></script>
-<script src="./assets/js/script.js"></script>
-</body>
+    <template id="demo-tmpl">
+      <div class="demo">
+        <div class="demo__content">
+          <div class="demo__view">
+            <div class="parent">
+              <div class="child"></div>
+              <div class="child"></div>
+              <div class="child child--featured"></div>
+              <div class="child"></div>
+            </div>
+          </div>
+
+          <div class="demo__code" spellcheck="false"></div>
+        </div>
+      </div>
+    </template>
+
+    <!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(65071600, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, trackHash:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/65071600" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+  <script type="text/javascript" src="/flex-cheatsheet/bundle.js"></script></body>
 </html>
