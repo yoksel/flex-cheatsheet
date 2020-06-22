@@ -31,7 +31,7 @@ with a unit or precede it by two flex factors.</p>`,
   values: [
     {
       name: 'none | [ <a href="#section-flex-grow">&lt;flex-grow></a> <a href="#section-flex-shrink">&lt;flex-shrink></a> ? || <a href="#section-flex-basis">&lt;flex-basis></a> ]',
-      alias: 'flex-basis-value',
+      alias: 'flex-value',
       desc: ''
     }
   ],
