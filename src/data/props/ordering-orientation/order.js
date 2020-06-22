@@ -7,6 +7,8 @@ export default {
 
   initValue: '0',
 
+  isFeaturedHighlighted: true,
+
   desc: `<p><a href="https://www.w3.org/TR/css-flexbox-1/#flex-item">Flex items</a> are, by default, displayed and laid out in the same order as they appear in the source document.
 The <a href="#section-order">order</a> property can be used to change this ordering.</p>
 
@@ -52,7 +54,6 @@ this property has no effect on boxes that are not <a href="https://www.w3.org/TR
       selector: '.parent',
       props: {
         display: 'flex',
-        'align-items': 'flex-start',
         height: '250px'
       }
     },
