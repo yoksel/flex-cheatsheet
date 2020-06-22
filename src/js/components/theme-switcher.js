@@ -1,3 +1,5 @@
+/* global STORAGE_KEY */
+
 const themes = [
   'sunny',
   'seagreen',
@@ -9,7 +11,7 @@ const themes = [
 
 export class ThemeSwitcher {
   constructor () {
-    this._lsKey = 'gdchTheme';
+    this._lsKey = STORAGE_KEY;
     this._counter = 0;
     this._theme = this._getTheme();
     this._control = document.querySelector('.theme-control');
