@@ -32,10 +32,10 @@ export default {
   ],
 
   htmlMarkup: `<div class="parent parent--fade-children">
-    <div class="child child--huge-text">Some text</div>
-    <div class="child"></div>
-    <div class="child child--featured"></div>
-    <div class="child"></div>
+    <div class="child child--featured child--huge-text">Ut enim minim</div>
+    <div class="child child--featured">Quis nostrud exercitation neminaes</div>
+    <div class="child">Ad veni</div>
+    <div class="child">Duis aute irure dolor</div>
   </div>`,
 
   cssRules: [
