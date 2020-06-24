@@ -73,7 +73,7 @@ export class Nav {
   _getNavElement () {
     const navMarkup = this._getNavContentMarkup();
 
-    return createElement(`<nav class="nav">
+    return createElement(`<nav class="nav page-aside__container">
       <h2 class="visually-hidden">Navigation</h2>
       ${navMarkup}
     </nav>`);

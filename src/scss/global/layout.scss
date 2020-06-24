@@ -133,6 +133,24 @@
   }
 }
 
+.page-aside__container {
+  padding: 1.5rem 1rem;
+
+  @media ( min-width: 1200px ) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.page-aside__clarification {
+  margin-bottom: 1rem;
+  color: var(--nav-link);
+
+  A {
+    color: inherit;
+  }
+}
+
 .container {
   padding-left: 1em;
   padding-right: 1em;
