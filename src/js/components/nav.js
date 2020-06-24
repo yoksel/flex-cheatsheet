@@ -126,7 +126,7 @@ export class Nav {
           >${name}</a>${itemsMarkup}</li>`;
     });
 
-    return `<ul class="nav__list ${customClass}">${itemsList.join('')}</ul>`;
+    return `<ul class="nav__list notranslate ${customClass}">${itemsList.join('')}</ul>`;
   }
 
   _navClickHandler (ev) {

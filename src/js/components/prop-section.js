@@ -54,7 +54,7 @@ export class PropSection {
   }
 
   _getTitleElement () {
-    return createElement(`<h3 class="prop__title">
+    return createElement(`<h3 class="prop__title  notranslate">
       ${this._data.name}
       <a class="self-link" href="#${this._sectionId}"></a>
     </h3>`);
@@ -112,7 +112,7 @@ export class PropSection {
 
       markup += `<dt
         id="${id}"
-        class="prop-values__term">
+        class="prop-values__term notranslate">
         ${name}
         <a class="self-link" href="#${id}"></a>
       </dt>
@@ -126,6 +126,7 @@ export class PropSection {
       ">
       <h4 class="
         prop-values__title
+        notranslate
         ${isTitleHidden ? 'visually-hidden' : ''}
       ">${title}</h4>
       <dl class="prop-values__list">${markup}</dl>

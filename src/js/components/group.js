@@ -40,7 +40,7 @@ export class Group {
     let className = 'group__title';
 
     if (hideTitle) {
-      className = 'visually-hidden';
+      className += ' visually-hidden';
     }
 
     return createElement(`<h2 class="${className}">
