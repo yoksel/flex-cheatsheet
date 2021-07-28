@@ -38,11 +38,11 @@ this property has no effect on boxes that are not <a href="https://www.w3.org/TR
 
   customValues: [
     {
-      name: '-1',
-      current: true
+      name: '-1'
     },
     {
-      name: '0'
+      name: '0',
+      current: true
     },
     {
       name: '1'
@@ -60,7 +60,7 @@ this property has no effect on boxes that are not <a href="https://www.w3.org/TR
     {
       selector: '.child--featured',
       props: {
-        order: '-1'
+        order: '0'
       }
     }
   ]
